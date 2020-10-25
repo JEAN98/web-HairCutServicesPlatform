@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="dashboard col-12 col-sm-auto">
+            <div class="logo">
+                <h2>Hair Cut Services</h2>
+                <hr>
+            </div>
+            <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+                <a routerLink="./appointments" routerLinkActive="active" routerLinkActiveOptions="(exact: true)">
+                    <i class="fa fa-calendar-alt icon-dashboard"></i><span>Citas</span>
+                </a>
+
+                <a routerLink="./staff" routerLinkActive="active">
+                    <i class="fa fa-users icon-dashboard"></i> <span>Personal</span>
+                </a>
+
+                <a routerLink="./services" routerLinkActive="active">
+                    <i class="fa fa-plus-square icon-dashboard"></i> <span>Servicios</span>
+                </a>
+
+                <a routerLink="./schedule" routerLinkActive="active">
+                    <i class="fa fa-clock icon-dashboard"></i> <span>Horarios</span>
+                </a>
+
+                <span><hr></span>
+
+                <a (click)="onLogout()" class="close-sesion" routerLink="./login" routerLinkActive="active">
+                    <i class="fa fa-sign-out-alt icon-dashboard"></i> <span>Cerrar Sesión</span>
+                </a>
+            </nav>
+        </div>
+
+        <main class="main col">
+            <div class="widget">
+                <router-outlet></router-outlet>
+               <!-- <app-footer></app-footer> TODO:Footer here--> 
+            </div>
+        </main>
+    </div>
+</div>

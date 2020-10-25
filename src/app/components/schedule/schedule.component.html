@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+
+    <div class="col-lg-8 form-container">
+
+        <h2 class="text-center bg-primary text-light py-2 text-uppercase main-title mt-5 mb-4">
+            Horarios
+        </h2>
+
+        <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+            <li class="nav-item col-md-6" role="presentation">
+                <a class="nav-link active" id="create-schedule-tab" data-toggle="tab" href="#create-schedule" role="tab" aria-controls="create-schedule" aria-selected="true">Crear Horario</a>
+            </li>
+            <li class="nav-item col-md-6" role="presentation">
+                <a class="nav-link" id="schedule-view-tab" data-toggle="tab" href="#schedule-view" role="tab" aria-controls="schedule-view" aria-selected="false">Ver Horario</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="create-schedule" role="tabpanel" aria-labelledby="create-schedule-tab">
+                <form class="main-form" #userForm="ngForm" [formGroup]="schedule_form" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="form-group">
+                        <div class="row pb-3">
+                            <!-- Dias de la semana -->
+                            <div class="col col-lg-3 pb-3">
+                                <div class="custom-control custom-checkbox cyan">
+                                    <input type="checkbox" formControlName="monday" name="monday" class="custom-control-input" id="monday">
+                                    <label class="custom-control-label" for="monday">Lunes</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" formControlName="tuesday" name="tuesday" class="custom-control-input" id="tuesday">
+                                    <label class="custom-control-label" for="tuesday">Martes</label>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 pb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" formControlName="wednesday" name="wednesday" class="custom-control-input" id="wednesday">
+                                    <label class="custom-control-label" for="wednesday">Miércoles</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" formControlName="thursday" name="thursday" class="custom-control-input" id="thursday">
+                                    <label class="custom-control-label" for="thursday">Jueves</label>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 pb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" formControlName="friday" name="friday" class="custom-control-input" id="friday">
+                                    <label class="custom-control-label" for="friday">Viernes</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" formControlName="saturday" name="saturday" class="custom-control-input" id="saturday">
+                                    <label class="custom-control-label" for="saturday">Sábado</label>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 pb-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" formControlName="sunday" name="sunday" class="custom-control-input" id="sunday">
+                                    <label class="custom-control-label" for="sunday">Domingo</label>
+                                </div>
+                            </div>
+                            <!-- Hora Inicio -->
+                            <div class="col col-lg-6 pb-3">
+                                <label class="blue-text">Hora Inicio:</label>
+                                <input type="time" formControlName="start_time" name="start_time" class="form-control" id="start_time" [ngClass]=" {'is-invalid': submitted && f.start_time.errors } " required>
+                            </div>
+                            <!-- Hora Cierre -->
+                            <div class="col col-lg-6 pb-3">
+                                <label class="blue-text">Hora Fin:</label>
+                                <input type="time" formControlName="end_time" name="end_time" class="form-control" id="end_time" [ngClass]=" {'is-invalid': submitted && f.end_time.errors } " required>
+                            </div>
+                        </div>
+                        <div>
+                            <button *ngIf="!loading" [disabled]="f.invalid" type="submit" class="btn btn-primary btn-block" value="Enviar">
+                                Crear Horario
+                            </button>
+                            <button *ngIf="loading" [disabled]="true" class="btn btn-primary btn-block">
+                                <i class="fa fa-spin fa-sync"></i>
+                                Creando Horario...
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade div-table-staff table-responsive-lg" id="schedule-view" role="tabpanel" aria-labelledby="schedule-view-tab">
+                <table class="table table-hover table-fixed">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Día</th>
+                            <th scope="col">Horario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let schedule of schedule_list_pinter">
+                            <td>Lunes</td>
+                            <td>7:00am a 5:00pm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

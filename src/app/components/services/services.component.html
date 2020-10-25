@@ -1,0 +1,163 @@
+<div class="row justify-content-center">
+    <div class="col-lg-8 form-container">
+
+        <h2 class="text-center bg-primary text-light py-2 text-uppercase main-title mt-5 mb-4">
+            Servicios
+        </h2>
+
+        <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+            <li class="nav-item col-md-6" role="presentation">
+                <a class="nav-link active" id="service-tab" data-toggle="tab" href="#service" role="tab" aria-controls="service" aria-selected="true">Crear Servicio</a>
+            </li>
+            <li class="nav-item col-md-6" role="presentation">
+                <a class="nav-link" id="service-view-tab" data-toggle="tab" href="#service-view" role="tab" aria-controls="service-view" aria-selected="false">Ver Servicios</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-4" id="myTabContent">
+            <div class="tab-pane fade show active" id="service" role="tabpanel" aria-labelledby="service-tab">
+                <form class="main-form" #serviceForm="ngForm" [formGroup]="service_form" (ngSubmit)="onSubmit()" novalidate>
+
+                    <div class="form-group mb-0">
+
+                        <div class="row pb-1">
+
+                            <!-- Title -->
+                            <div class="col-auto col-lg-6 pb-3">
+
+                                <label class="blue-text">
+                                    Título:
+                                </label>
+
+                                <input type="string" formControlName="title" name="title" class="form-control" id="title" placeholder="Título" [ngClass]=" {'is-invalid': submitted && f.title.errors } " minlength=3 maxlength=100 required>
+
+                                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                                    <div *ngIf="f.title.errors.required">
+                                        Título requerido.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Code -->
+                            <div class="col-auto col-lg-6 pb-3">
+
+                                <label class="blue-text">
+                                    Código de servicio:
+                                </label>
+
+                                <input type="string" formControlName="code" name="code" class="form-control" id="code" placeholder="Código" [ngClass]=" {'is-invalid': submitted && f.code.errors } " minlength=3 maxlength=100 required>
+
+                                <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+                                    <div *ngIf="f.code.errors.required">
+                                        Código requerido.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-auto col-lg-12 pb-3">
+
+                                <label class="blue-text">
+                                    Descripción:
+                                </label>
+
+                                <textarea type="string" formControlName="description" name="description" class="form-control" id="description" placeholder="Pequeña descripción del servicio..." [ngClass]=" {'is-invalid': submitted && f.description.errors } " minlength=7 maxlength=100
+                                    required>
+                                </textarea>
+
+                                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                    <div *ngIf="f.description.errors.required">
+                                        Descripción requerida.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Cost -->
+                            <div class="col-auto col-lg-4 pb-3">
+
+                                <label class="blue-text">
+                                    Costo en colones:
+                                </label>
+
+                                <input type="number" formControlName="cost" name="cost" class="form-control" id="cost" placeholder="0000" [ngClass]=" {'is-invalid': submitted && f.cost.errors } " minlength=7 maxlength=100 required>
+
+                                <div *ngIf="submitted && f.cost.errors" class="invalid-feedback">
+                                    <div *ngIf="f.cost.errors.required">
+                                        Costo requerido.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- duration -->
+                            <div class="col-auto col-lg-4 pb-3">
+
+                                <label class="blue-text">
+                                    Duración en minutos:
+                                </label>
+
+                                <input type="number" formControlName="duration_min" name="duration_min" class="form-control" id="duration_min" placeholder="00" [ngClass]=" {'is-invalid': submitted && f.duration_min.errors } " minlength=7 maxlength=100 required>
+
+                                <div *ngIf="submitted && f.duration_min.errors" class="invalid-feedback">
+                                    <div *ngIf="f.duration_min.errors.required">
+                                        Duración requerida.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Gender Id -->
+                            <div class="col-auto col-lg-4 pb-3">
+
+                                <label class="blue-text">Género:</label>
+
+                                <select class="form-control" formControlName="gender_id" name="gender_id" id="gender_id" [ngClass]="{ 'is-invalid': submitted && f.gender_id.errors }" required>
+        
+                                        <option selected value="">Seleccione el género...</option>
+                                        <option value="0">Masculino</option>
+                                        <option value="1">Femenino</option>
+                                        <option value="2">Otro</option>
+        
+                                    </select>
+
+                                <div *ngIf="submitted && f.gender_id.errors" class="invalid-feedback">
+                                    <div *ngIf="f.gender_id.errors.required">
+                                        Seleccione un género.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button [disabled]="f.invalid" type="submit" class="btn btn-primary btn-block" value="Enviar">
+                        Crear Servicio
+                    </button>
+
+                </form>
+            </div>
+            <div class="tab-pane fade div-table-service table-responsive-lg" id="service-view" role="tabpanel" aria-labelledby="service-view-tab">
+                <table class="table table-hover table-fixed">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Costo</th>
+                            <th scope="col">Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let service of services_list">
+                            <td>Corte estandar caballero</td>
+                            <td>₡ 3500</td>
+                            <td>30 minutos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

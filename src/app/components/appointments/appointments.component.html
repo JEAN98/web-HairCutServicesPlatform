@@ -1,0 +1,94 @@
+<div class="row justify-content-center">
+    <div class="col-lg-10 form-container mb-3">
+
+        <h2 class="text-center bg-primary text-light py-2 text-uppercase main-title mt-5 mb-3">
+            Citas Agendadas
+        </h2>
+
+        <div *ngIf="!is_services_view_available" class="div-appointments">
+            <div class="row row-cols-1 row-cols-md-3 ml-1 mr-1">
+
+                <div class="col-md-4">
+                    <label for="">Fecha Inicial</label>
+                    <input type="date" name="initial_date" #date="ngModel" class="form-control input-date" id="initial_date" ngModel [(ngModel)]="initial_date" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Fecha Final</label>
+                    <input type="date" name="end_date" #date="ngModel" class="form-control input-date" id="end_date" ngModel [(ngModel)]="end_date" required>
+                </div>
+
+                <div class="col-md-4 div-btn-fil">
+
+                    <button *ngIf="!loading" type="submit" class="btn btn-primary btn-block" value="Enviar" (click)="search_appointments()">
+                        Buscar Citas
+                    </button>
+
+                    <button *ngIf="loading" [disabled]="true" class="btn btn-primary btn-block">
+                        <i class="fa fa-spin fa-sync"></i>
+                        Cargando citas...
+                    </button>
+
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="row row-cols-md-3">
+
+                    <div class="col mb-4" *ngFor="let appointment of appointment_list">
+
+                        <div class="card border-success mb-3" style="max-width: 18rem;">
+                            <div class="card-header bg-transparent border-success">07-10-2020</div>
+                            <div class="card-body text-success">
+                                <h5 class="card-title">Steve Araya Solorzano</h5>
+                                <p class="card-text">Tiempo Total: 30m</p>
+                                <p class="card-text">Costo Total: ₡3500</p>
+                                <p class="card-text">03:00pm - 03:30pm</p>
+                                <button class="btn btn-primary btn-block" (click)="search_user_service()">
+                                    <i class=" fa fa-eye "></i>
+                                    Ver servicios
+                                </button>
+                            </div>
+                            <div class="card-footer bg-transparent border-success ">Jean Carlos Vega (Doggy)</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="is_services_view_available" class="mb-3 ">
+
+            <div class="row row-cols-1 row-cols-md-3 ml-1 mr-1 mt-4 mb-4 ">
+
+                <div class="col-md-6 ">
+                    <button class="btn btn-primary btn-block cancel-service-botton " (click)="cancel_services_view() ">
+                        <i class=" fa fa-arrow-alt-circle-left "></i>
+                        Volver a vista de citas
+                    </button>
+                </div>
+                <div class="col-md-6 user-name-box ">
+                    <h5 class="card-title user-name ">Steve Araya Solórzano</h5>
+                </div>
+
+            </div>
+
+            <div class="div-appointments">
+                <div class="col mb-10 mb-3 " *ngFor="let service of user_services_list ">
+                    <div class="card text-center ">
+                        <div class="card-header ">
+                            Corte de pelo sencillo
+                        </div>
+                        <div class="card-body ">
+                            <h5 class="card-title ">Código: CPS-01</h5>
+                            <p class="card-text ">Descripción: Esto seria la descripción del servicio que viene de los servicios ofertados por la barber shop</p>
+                            <p class="card-text ">Costo: ₡3500</p>
+                            <p class="card-text ">Duración: 30 minutos</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

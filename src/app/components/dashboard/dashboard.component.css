@@ -1,0 +1,144 @@
+body {
+    background: white;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+/* Dashboard */
+
+
+/* 
+#E1834D
+#DE5F60
+#41929D
+#2A2522
+#FAE8D4
+*/
+
+.dashboard {
+    background: var(--primary-color);
+    color: #fff;
+    min-width: 300px;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.dashboard a {
+    color: #fff;
+}
+
+
+/* --- Logo --- */
+
+.dashboard .logo {
+    background: #41929D;
+    margin-bottom: 2px;
+}
+
+.dashboard .logo h2 {
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px 0;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+}
+
+hr {
+    border-top: 2px solid white !important;
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 0%;
+}
+
+
+/* Menu */
+
+.dashboard .menu a {
+    display: block;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.icon-dashboard {
+    text-align: center;
+    width: 32px;
+    color: #FAE8D4;
+}
+
+.dashboard .menu a:hover {
+    background: #FAE8D4;
+    text-decoration: none;
+    color: var(--tertiary-color);
+}
+
+.dashboard .menu a:hover .icon-dashboard {
+    color: var(--tertiary-color);
+}
+
+.close-sesion,
+.close-sesion i {
+    color: var(--secondary-color) !important;
+}
+
+a.active {
+    background-color: #E1834D!important;
+    color: #2A2522 !important;
+    font-weight: bold !important;
+}
+
+a.active i {
+    color: #2A2522 !important;
+}
+
+
+/* Main */
+
+.main {
+    padding-top: 40px;
+}
+
+.main .title {
+    color: #262a34;
+    font-size: 25px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+}
+
+.main .widget {
+    margin-bottom: 40px;
+}
+
+
+/* --- --- MEDIAQUERIES --- --- */
+
+@media screen and (max-width: 1300px) {
+    .dashboard {
+        min-width: auto;
+    }
+    .dashboard .logo {
+        display: none;
+    }
+    .dashboard .menu a span {
+        display: none;
+    }
+    .dashboard .menu a i {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .dashboard {
+        min-height: auto;
+    }
+    .dashboard .menu a {
+        display: inline-block;
+        border-bottom: none;
+    }
+    .main .widget form button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,74 @@
+:root {
+    --primary-color: #2A2522;
+    --secondary-color: #DE5F60;
+    --tertiary-color: #E1834D;
+}
+
+
+/* 
+#E1834D
+#DE5F60
+#41929D
+#2A2522
+#FAE8D4
+*/
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+/* Buttons */
+
+.btn-primary {
+    background-color: var(--tertiary-color) !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-color: var(--tertiary-color) !important;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    color: #fff;
+    background-color: rgba(76, 184, 179, .2);
+    border-color: rgba(76, 184, 179, .2);
+}
+
+.btn-primary:hover {
+    background-color: white !important;
+    color: var(--tertiary-color) !important;
+    border-color: var(--tertiary-color) !important;
+}
+
+.btn-success {
+    background-color: var(--tertiary-color);
+    color: white;
+    font-weight: bold;
+    border-color: var(--tertiary-color);
+}
+
+.btn-success:hover {
+    background-color: white;
+    color: var(--tertiary-color);
+    border-color: var(--tertiary-color);
+}
+
+.btn-danger {
+    margin-right: 5px;
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: bold;
+    border-color: var(--secondary-color);
+}
+
+.btn-danger:hover {
+    background-color: white;
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}

@@ -1,0 +1,68 @@
+.bg-primary {
+    background-color: var(--primary-color) !important;
+    border-radius: 6px;
+}
+
+.main-title {
+    color: white;
+}
+
+input,
+select,
+textarea {
+    border-color: var(--primary-color) !important;
+}
+
+.div-btn-fil {
+    margin-top: 32px;
+}
+
+
+/* Cards */
+
+
+/* 
+#E1834D
+#DE5F60
+#41929D
+#2A2522
+#FAE8D4
+var(--primary-color);
+*/
+
+.border-success {
+    border-color: #41929D !important;
+}
+
+.card-header,
+.card-footer {
+    background-color: #41929D !important;
+    color: white;
+    text-align: center !important;
+}
+
+.card-title,
+.card-text {
+    color: var(--primary-color);
+}
+
+.user-name {
+    color: #E1834D;
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+
+.user-name-box {
+    font-weight: bold !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* div-appointments */
+
+.div-appointments {
+    height: 500px;
+    overflow: auto;
+}

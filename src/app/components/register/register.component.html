@@ -1,0 +1,142 @@
+<form class="main-form" #registerForm="ngForm" [formGroup]="register_form" (ngSubmit)="onSubmit()" novalidate>
+
+    <div class="form-group">
+
+        <div class="row pb-3">
+
+            <!-- Barber Shop Name -->
+            <div class="col col-lg-6 pb-1">
+
+                <label class="blue-text">
+                    Nombre:
+                </label>
+
+                <input type="string" formControlName="name" name="name" class="form-control" id="name" placeholder="Nombre" [ngClass]=" {'is-invalid': submitted && f.name.errors } " required>
+
+            </div>
+
+            <!-- Email -->
+            <div class="col col-lg-6 pb-1">
+
+                <label class="blue-text">Correo Electrónico:</label>
+
+                <input type="email" formControlName="email" name="email" class="form-control" id="email" placeholder="ejemplo@gmail.com" [ngClass]="{ 'is-invalid': submitted && f.email.errors}" required>
+
+            </div>
+
+            <!-- Descriptio -->
+            <div class="col col-lg-12 pb-1">
+
+                <label class="blue-text">
+                    Descripción:
+                </label>
+
+                <input type="string" formControlName="description" name="description" class="form-control" id="description" placeholder="Pequeña descripción" [ngClass]=" {'is-invalid': submitted && f.description.errors } " required>
+
+            </div>
+
+            <!-- Latitud -->
+            <div class="col col-lg-6 pb-1">
+
+                <label class="blue-text">Latitud:</label>
+
+                <input type="number" formControlName="latitud" name="latitud" class="form-control" id="latitud" placeholder="00.00" [ngClass]="{ 'is-invalid': submitted && f.latitud.errors}" required>
+
+            </div>
+
+            <!-- Longitud -->
+            <div class="col col-lg-6 pb-1">
+
+                <label class="blue-text">Longitud:</label>
+
+                <input type="number" formControlName="longitud" name="longitud" class="form-control" id="longitud" placeholder="00.00" [ngClass]="{ 'is-invalid': submitted && f.longitud.errors}" required>
+
+            </div>
+
+            <!-- Lunch Starts -->
+            <div class="col col-lg-6 pb-3">
+
+                <label class="blue-text">Inicio Almuerzo:</label>
+
+                <input type="time" formControlName="start_time" name="start_time" class="form-control" id="start_time" [ngClass]=" {'is-invalid': submitted && f.start_time.errors } " required>
+
+            </div>
+
+            <!-- Lunch Ends -->
+            <div class="col col-lg-6 pb-3">
+
+                <label class="blue-text">Fin Almuerzo:</label>
+
+                <input type="time" formControlName="end_time" name="end_time" class="form-control" id="end_time" [ngClass]=" {'is-invalid': submitted && f.end_time.errors } " required>
+
+            </div>
+
+            <!-- Photo -->
+            <div class="col col-lg-12 pb-1">
+
+                <div class="custom-file">
+                    <input type="file" name="photo" class="form-control custom-file-input" id="photo" accept=".png, .jpg" (change)="upload_image($event.target.files[0])">
+                    <label class="custom-file-label" for="validatedInputGroupCustomFile">{{image_name}}</label>
+                   
+                </div>
+              
+            </div>
+
+            <!-- TODO: REMOVE THIS EXMAPLE -->
+            <div class="col col-lg-12 pb-1">
+                <div class="col align-self-center">
+                    <img [src]="imageBase64" width="50" height="50">
+                </div>
+            </div>
+          
+
+            <!-- WebSite -->
+            <div class="col col-lg-6 pb-1">
+
+                <label class="blue-text">
+                    Sitio Web:
+                </label>
+
+                <input type="string" formControlName="website" name="website" class="form-control" id="website" placeholder="Sitio web del lugar">
+
+            </div>
+
+            <!-- Gender -->
+            <div class="col col-lg-6 pb-1">
+
+                <label class="blue-text">Géneros de atención:</label>
+
+                <select class="form-control" formControlName="gender" name="gender" id="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" required>
+                    
+                    <option selected value="">Seleccione una opción...</option>
+                    <option value="Hombres">Hombres</option>
+                    <option value="Mujeres">Mujeres</option>
+                    <option value="Mixto">Mixto</option>
+
+                </select>
+
+            </div>
+
+            <!-- Password -->
+            <div class="col col-lg-12 pb-1">
+
+                <label class="blue-text">Contraseña:</label>
+
+                <input type="password" formControlName="password" name="password" class="form-control" id="password" placeholder="Contraseña" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required>
+
+            </div>
+
+        </div>
+
+        <div>
+            <button *ngIf="!loading" [disabled]="f.invalid" type="submit" class="btn btn-primary btn-block" value="Enviar">
+                Crear BaberShop
+            </button>
+
+            <button *ngIf="loading" [disabled]="true" class="btn btn-primary btn-block">
+                <i class="fa fa-spin fa-sync"></i>
+                Creando BaberShop...
+            </button>
+        </div>
+    </div>
+</form>

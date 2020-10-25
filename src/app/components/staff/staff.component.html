@@ -1,0 +1,114 @@
+<div class="row justify-content-center">
+    <div class="col-lg-8 form-container">
+
+        <h2 class="text-center bg-primary text-light py-2 text-uppercase main-title mt-5 mb-4">
+            Personal
+        </h2>
+
+        <ul class="nav nav-tabs col-md-12" id="myTab" role="tablist">
+            <li class="nav-item col-md-6" role="presentation">
+                <a class="nav-link active" id="create-staff-tab" data-toggle="tab" href="#create-staff" role="tab" aria-controls="create-staff" aria-selected="true">Crear Personal</a>
+            </li>
+            <li class="nav-item col-md-6" role="presentation">
+                <a class="nav-link" id="staff-view-tab" data-toggle="tab" href="#staff-view" role="tab" aria-controls="staff-view" aria-selected="false">Ver Personal</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-4" id="myTabContent">
+            <div class="tab-pane fade show active" id="create-staff" role="tabpanel" aria-labelledby="create-staff-tab">
+                <form class="main-form" #staffForm="ngForm" [formGroup]="staff_form" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="form-group mb-0">
+                        <div class="row pb-1">
+                            <!-- Identification Card -->
+                            <div class="col-auto col-lg-12 pb-3">
+                                <label class="blue-text">
+                                    Numero de Cédula:
+                                </label>
+                                <input type="string" formControlName="identification_card" name="identification_card" class="form-control" id="identification_card" placeholder="Ejemplo: 208880888" [ngClass]=" {'is-invalid': submitted && f.identification_card.errors } " minlength=7 maxlength=100
+                                    required>
+                                <div *ngIf="submitted && f.identification_card.errors" class="invalid-feedback">
+                                    <div *ngIf="f.identification_card.errors.required">
+                                        Numero de cédula requerida.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- First Name -->
+                            <div class="col-auto col-lg-6 pb-3">
+                                <label class="blue-text">
+                                    Nombre:
+                                </label>
+                                <input type="string" formControlName="first_name" name="first_name" class="form-control" id="first_name" placeholder="Nombre del colaborador" [ngClass]=" {'is-invalid': submitted && f.first_name.errors } " minlength=3 maxlength=100 required>
+                                <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.first_name.errors.required">
+                                        Nombre del colaborador requerido.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Last Name -->
+                            <div class="col-auto col-lg-6 pb-3">
+                                <label class="blue-text">
+                                    Apellidos:
+                                </label>
+                                <input type="string" formControlName="last_name" name="last_name" class="form-control" id="last_name" placeholder="Apellidos del colaborador" [ngClass]=" {'is-invalid': submitted && f.last_name.errors } " minlength=3 maxlength=100 required>
+                                <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.last_name.errors.required">
+                                        Apellidos del colaborador requerido.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Birthday -->
+                            <div class="col-auto col-lg-6 pb-3">
+                                <label class="blue-text">
+                                    Fecha de Nacimiento:
+                                </label>
+                                <input type="date" formControlName="birthday" name="birthday" class="form-control" id="birthday" [ngClass]=" {'is-invalid': submitted && f.birthday.errors } " required>
+                                <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
+                                    <div *ngIf="f.birthday.errors.required">
+                                        Fecha requerida.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Gender Id -->
+                            <div class="col-auto col-lg-6 pb-3">
+                                <label class="blue-text">Género:</label>
+                                <select class="form-control" formControlName="gender_id" name="gender_id" id="gender_id" [ngClass]="{ 'is-invalid': submitted && f.gender_id.errors }" required>
+                                    <option selected value="">Seleccione el género...</option>
+                                    <option value="0">Masculino</option>
+                                    <option value="1">Femenino</option>
+                                    <option value="2">Otro</option>
+                                </select>
+                                <div *ngIf="submitted && f.gender_id.errors" class="invalid-feedback">
+                                    <div *ngIf="f.gender_id.errors.required">
+                                        Seleccione un género.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button [disabled]="f.invalid" type="submit" class="btn btn-primary btn-block" value="Enviar">
+                        Crear Personal
+                    </button>
+                </form>
+            </div>
+            <div class="tab-pane fade div-table-staff table-responsive-lg" id="staff-view" role="tabpanel" aria-labelledby="staff-view-tab">
+                <table class="table table-hover table-fixed">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Cédula</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Fecha de Nacimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let staff of staff_list">
+                            <td>206950338</td>
+                            <td>Steve</td>
+                            <td>Araya Solorzano</td>
+                            <td>05/01/1992</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+/* 
+#E1834D
+#DE5F60
+#41929D
+#2A2522
+#FAE8D4
+*/
+
+hr {
+    border-top: 2px solid #41929D !important;
+    width: 90%;
+}
+
+.copyright {
+    color: #41929D !important;
+    font-size: 1 rem;
+}
+
+.copyright-div {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
