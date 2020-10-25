@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
       gender:           [''],
       password:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
     });
-    this.getGenderList();
+    //this.getGenderList();
   }
 
   get f() { return this.register_form.controls; }
@@ -113,8 +113,8 @@ export class RegisterComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = function () {
       me.imageBase64 = reader.result;
+      console.log( me.imageBase64)
     };
-    console.log(this.imageBase64)
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };

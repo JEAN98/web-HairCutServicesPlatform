@@ -75,7 +75,7 @@
             <div class="col col-lg-12 pb-1">
 
                 <div class="custom-file">
-                    <input type="file" name="photo" class="form-control custom-file-input" id="photo" accept=".png, .jpg" (change)="upload_image($event.target.files[0])">
+                    <input type="file" name="photo" class="form-control custom-file-input" id="photo" accept=".png" (change)="upload_image($event.target.files[0])">
                     <label class="custom-file-label" for="validatedInputGroupCustomFile">{{image_name}}</label>
                    
                 </div>
