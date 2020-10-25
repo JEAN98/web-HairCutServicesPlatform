@@ -12,6 +12,7 @@ import { FormGroup,
 
 import { AlertService } from '../../services/alert.service';
 import { from } from 'rxjs';
+import { GenderService } from 'src/app/services/gender.service';
 
 @Component({
   selector: 'app-register',
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
   constructor(
               private formBuilder: FormBuilder,
               private alert_service: AlertService,
+              private genderService: GenderService
   ) 
   { 
 
@@ -49,6 +51,7 @@ export class RegisterComponent implements OnInit {
       gender:           [''],
       password:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
     });
+    this.getGenderList();
   }
 
   get f() { return this.register_form.controls; }
@@ -84,6 +87,11 @@ export class RegisterComponent implements OnInit {
       console.log(barberShop);
 
     }
+  }
+
+  async getGenderList() {
+    let result = await this.genderService.getGenderList().toPromise()
+   console.log(result);
   }
 
    upload_image( file: File ) {
