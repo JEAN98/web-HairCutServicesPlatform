@@ -15,6 +15,7 @@ import { from } from 'rxjs';
 import { GenderService } from 'src/app/services/gender.service';
 import { HairdressingSalonService } from 'src/app/services/hairdressing-salon.service';
 import { HairdressingSalon } from 'src/app/models/hairdressing-salon';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
               private formBuilder: FormBuilder,
               private alert_service: AlertService,
               private genderService: GenderService,
-              private hsService: HairdressingSalonService
+              private hsService: HairdressingSalonService,
+              private localStorageService: LocalStorageService
   ) 
   { 
 

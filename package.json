@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~9.1.4",
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
+    "@auth0/angular-jwt": "^5.0.1",
     "fuctbase64": "^1.4.0",
     "rxjs": "~6.5.4",
     "sweetalert2": "^10.3.5",
