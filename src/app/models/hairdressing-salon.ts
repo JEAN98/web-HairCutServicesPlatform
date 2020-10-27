@@ -7,7 +7,8 @@ export class HairdressingSalon {
     lunchStarts: string ;
     lunchEnds: string ;
     latitud: number ;
-    longitud: number ;
+    longitud: number;
+    photo: string;
     website: string;
     genderID: number;
 }
