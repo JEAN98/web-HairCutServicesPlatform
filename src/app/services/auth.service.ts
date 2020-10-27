@@ -15,13 +15,12 @@ export class AuthService {
   /* refreshUrl() {
     this.loginUrl = this.headerService.getGuestURL() + '/guest/users/session';
   } */
-  
-  login(email: string, password: string, isGym: boolean) {
+
+  login(email: string, password: string) {
     //this.refreshUrl();
     const body = new HttpParams()
     .set('email', email)
     .set('password', password)
-    .set('isGym', isGym ? "gym" : "member");
     return this.http.post(this.sessionURL, body, this.headerService.getHeaderLogin());
   }
 
