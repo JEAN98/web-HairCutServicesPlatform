@@ -16,6 +16,7 @@ import { GenderService } from 'src/app/services/gender.service';
 import { HairdressingSalonService } from 'src/app/services/hairdressing-salon.service';
 import { HairdressingSalon } from 'src/app/models/hairdressing-salon';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +36,7 @@ export class RegisterComponent implements OnInit {
   constructor(
               private formBuilder: FormBuilder,
               private alert_service: AlertService,
+              private router: Router,
               private genderService: GenderService,
               private hsService: HairdressingSalonService,
               private localStorageService: LocalStorageService
@@ -83,7 +85,7 @@ export class RegisterComponent implements OnInit {
       this.hairdressingSalon.lunchStarts = this.register_form.value.start_time + ':00';
       this.hairdressingSalon.lunchEnds =   this.register_form.value.end_time + ':00';
       this.hairdressingSalon.website =      this.register_form.value.website;
-      this.hairdressingSalon.genderID =      1; //Men
+      this.hairdressingSalon.genderID =      1; //FIXME: Men as default
       this.hairdressingSalon.password =     this.register_form.value.password;
       this.hairdressingSalon.photo = this.imageBase64AsString;
       this.createHS();
@@ -97,9 +99,12 @@ export class RegisterComponent implements OnInit {
   }
 
   async createHS() {
-    let result = await this.hsService.createHS(this.hairdressingSalon).toPromise()
-    console.log(result);
-    this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
+    let newAccount = await this.hsService.createHS(this.hairdressingSalon).toPromise()
+    console.log(newAccount);
+    this.localStorageService.saveSession(newAccount['session']);
+    this.localStorageService.saveCurrentHS(newAccount['hairdressingSalon']);
+    this.router.navigate(['/dashboard']);
+    //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
   }
 
    upload_image( file: File ) {
