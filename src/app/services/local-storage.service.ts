@@ -13,10 +13,10 @@ export class LocalStorageService {
   }
 
   getSession() : Session{
-    console.log( localStorage.getItem('session') != null,'session');
-    if(localStorage.getItem('session') != undefined && localStorage.getItem('session') != null)
+    console.log( localStorage.getItem('session') != 'undefined','session');
+    if(localStorage.getItem('session') !== null &&localStorage.getItem('session') !== undefined && localStorage.getItem('session') !== 'undefined')
     {
-      console.log('asdfasdfassession');
+      console.log(localStorage.getItem('session'));
       return new Session(JSON.parse(localStorage.getItem('session')));
     }
     return null;

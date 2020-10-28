@@ -17,6 +17,8 @@ import { HairdressingSalonService } from 'src/app/services/hairdressing-salon.se
 import { HairdressingSalon } from 'src/app/models/hairdressing-salon';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Router } from '@angular/router';
+import { Session }               from '../../models/session';
+import { TimeHelperService } from 'src/app/services/time-helper.service';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +41,8 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private genderService: GenderService,
               private hsService: HairdressingSalonService,
-              private localStorageService: LocalStorageService
+              private localStorageService: LocalStorageService,
+              private timeHelperService: TimeHelperService
   ) 
   { 
 
@@ -55,7 +58,7 @@ export class RegisterComponent implements OnInit {
       start_time:       [''],
       end_time:         [''],
       // photo:            [''],
-      website:          [[''],[Validators.required, Validators.minLength(8), Validators.maxLength(500)]],
+      website:          [[''],],
       gender:           [''],
       password:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
     });
@@ -70,7 +73,6 @@ export class RegisterComponent implements OnInit {
   // Este me permite crear nuevas barbershops.
   onSubmit() {
     this.submitted = true;
-
     console.log(this.register_form.valid);
     console.log(this.register_form.value);
 
@@ -89,8 +91,8 @@ export class RegisterComponent implements OnInit {
       this.hairdressingSalon.password =     this.register_form.value.password;
       this.hairdressingSalon.photo = this.imageBase64AsString;
       this.createHS();
-     
     }
+    
   }
 
   async getGenderList() {
@@ -98,16 +100,32 @@ export class RegisterComponent implements OnInit {
    console.log(result);
   }
 
-  async createHS() {
-    let newAccount = await this.hsService.createHS(this.hairdressingSalon).toPromise()
-    console.log(newAccount);
-    this.localStorageService.saveSession(newAccount['session']);
-    this.localStorageService.saveCurrentHS(newAccount['hairdressingSalon']);
-    this.router.navigate(['/dashboard']);
-    //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
+ createHS() {
+   console.log('createHS');
+    if(!this.timeHelperService.validateTime( this.hairdressingSalon.lunchStarts, this.hairdressingSalon.lunchEnds))
+    {
+      console.log('La hora de inicio del almuerzo no puede ser mayor a la hora final del almuerzo');
+      this.alert_service.swal_create_messages('center', 'error', 'La hora de inicio del almuerzo no puede ser menor a la hora final', 3000);
+    }
+    else if(this.uploadFile == null)
+    {
+      this.alert_service.swal_create_messages('center', 'error', 'Se debe agregar una foto para completar el registro', 3000);
+    }
+    else{
+      this.hsService.createHS(this.hairdressingSalon).toPromise()
+      .then((res) => {
+        this.localStorageService.saveSession(new Session(res['session']));
+        this.localStorageService.saveCurrentHS(res['hairdressingSalon']);
+        this.router.navigate(['/dashboard']);
+      })
+      .catch((err) => {
+        this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
+      })
+       //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
+    }
   }
 
-   upload_image( file: File ) {
+  upload_image( file: File ) {
     this.uploadFile = file;
     if ( !file ) { 
       this.image_name = 'Seleccione una imagen...';
