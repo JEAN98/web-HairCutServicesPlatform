@@ -29,7 +29,7 @@ export class LocalStorageService {
 
   saveCurrentHS(hairdressingSalon:HairdressingSalon)
   {
-    hairdressingSalon.photo = '';
+   // hairdressingSalon.photo = '';
     localStorage.setItem('currentHS',JSON.stringify(hairdressingSalon));
   }
 

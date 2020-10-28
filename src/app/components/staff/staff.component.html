@@ -48,7 +48,8 @@
                                 <label class="blue-text">
                                     Apellidos:
                                 </label>
-                                <input type="string" formControlName="last_name" name="last_name" class="form-control" id="last_name" placeholder="Apellidos del colaborador" [ngClass]=" {'is-invalid': submitted && f.last_name.errors } " minlength=3 maxlength=100 required>
+                                <input type="string" formControlName="last_name" name="last_name" autocomplete="off" class="form-control" id="last_name" placeholder="Apellidos del colaborador" [ngClass]=" {'is-invalid': submitted && f.last_name.errors } " minlength=3 maxlength=100 required>
+                                
                                 <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
                                     <div *ngIf="f.last_name.errors.required">
                                         Apellidos del colaborador requerido.
