@@ -12,12 +12,12 @@ export class LocalStorageService {
     this.getSession();
   }
 
-  getSession() : Session{
+  getSession() : any{
     console.log( localStorage.getItem('session') != 'undefined','session');
     if(localStorage.getItem('session') !== null &&localStorage.getItem('session') !== undefined && localStorage.getItem('session') !== 'undefined')
     {
       console.log(localStorage.getItem('session'));
-      return new Session(JSON.parse(localStorage.getItem('session')));
+      return JSON.parse(localStorage.getItem('session'));
     }
     return null;
   }

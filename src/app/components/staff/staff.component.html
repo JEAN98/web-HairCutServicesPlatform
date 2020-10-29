@@ -56,26 +56,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Birthday -->
-                            <div class="col-auto col-lg-6 pb-3">
-                                <label class="blue-text">
-                                    Fecha de Nacimiento:
-                                </label>
-                                <input type="date" formControlName="birthday" name="birthday" class="form-control" id="birthday" [ngClass]=" {'is-invalid': submitted && f.birthday.errors } " required>
-                                <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
-                                    <div *ngIf="f.birthday.errors.required">
-                                        Fecha requerida.
-                                    </div>
-                                </div>
-                            </div>
                             <!-- Gender Id -->
-                            <div class="col-auto col-lg-6 pb-3">
+                            <div class="col-auto col-lg-12 pb-3">
                                 <label class="blue-text">Género:</label>
                                 <select class="form-control" formControlName="gender_id" name="gender_id" id="gender_id" [ngClass]="{ 'is-invalid': submitted && f.gender_id.errors }" required>
                                     <option selected value="">Seleccione el género...</option>
-                                    <option value="0">Masculino</option>
-                                    <option value="1">Femenino</option>
-                                    <option value="2">Otro</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Otro</option>
                                 </select>
                                 <div *ngIf="submitted && f.gender_id.errors" class="invalid-feedback">
                                     <div *ngIf="f.gender_id.errors.required">
@@ -97,7 +85,6 @@
                             <th scope="col">Cédula</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
-                            <th scope="col">Fecha de Nacimiento</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +92,6 @@
                             <td>206950338</td>
                             <td>Steve</td>
                             <td>Araya Solorzano</td>
-                            <td>05/01/1992</td>
                         </tr>
                     </tbody>
                 </table>

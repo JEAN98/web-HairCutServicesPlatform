@@ -41,10 +41,12 @@ export class HeaderService {
         // tslint:disable-next-line:object-literal-key-quotes
         'Authorization': 'Bearer ' + this.session.access_token
       }); */
+      console.log(this.loadSession().access_token, 'acces_token');
       const header = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.loadSession().access_token
       });
+  
       return {headers: header};
     }
 }

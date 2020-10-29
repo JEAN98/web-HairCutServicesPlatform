@@ -12,8 +12,9 @@ import { FormGroup,
 
 // Servicios
 import { AlertService } from '../../services/alert.service';
-
+import {Worker } from '../../models/worker';
 import 'rxjs/operators';
+import { WorkerService } from 'src/app/services/worker.service';
 
 @Component({
   selector: 'app-staff',
@@ -31,10 +32,8 @@ export class StaffComponent implements OnInit {
   
   constructor(private formBuilder: FormBuilder,
               private alert_service: AlertService,
-  ) 
-  { 
-
-  }
+              private workerService: WorkerService ) 
+  {}
   
   ngOnInit() {
   
@@ -56,33 +55,31 @@ export class StaffComponent implements OnInit {
     // Si el form es valido mandamos a llamar el metodo encargado de crear el staff.
     if (this.staff_form.valid) {
       // Creamos el modelo del staff para almacenarlo en la base de datos.
-      const staff: any = {
-        salon_id:            1, //Este se debe de optener del objeto que esta en localstorage.
-        identification_card: this.staff_form.value.identification_card,
-        first_name:          this.staff_form.value.first_name,
-        last_name:           this.staff_form.value.last_name,
-        gender_id:           this.staff_form.value.gender_id,
-        birthday:            this.staff_form.value.birthday,
-      }
-
-      this.create_new_staff(staff);
-      
+      var newWorker = new Worker();
+        newWorker.identificationCard = this.staff_form.value.identification_card,
+        newWorker.firstName =          this.staff_form.value.first_name,
+        newWorker.lastName =           this.staff_form.value.last_name,
+        newWorker.genderID =           parseInt(this.staff_form.value.gender_id),
+      this.create_new_staff(newWorker);
     }
   }
   
   // Metodo que permite crear el nuevo staff.
-  create_new_staff(staff: any){
-
+  create_new_staff(staff: Worker){
     console.log(staff);
+    this.workerService.createWorker(staff).toPromise()
+    .then((res) => {
 
-    // this._staff_service.create_new_staff(staff).toPromise()
-    // .then((resp) => {
-    //   this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un staff con éxito.', 3000);
-    //   this.resetForm();
-    // })
-    // .catch(err => {
-    //   this.alert_service.swal_create_messages('center', 'error', 'message', 3000);
-    // });
+    })
+    .catch((error) => {
+        if(error["details"]!== null)
+        {
+          if(error["details"]["message"] === 'identification_card must be unique')
+          {
+            this.alert_service.swal_create_messages('center', 'error', 'El número de la cédula debe ser único, el número selecionado ya existen en la base de datos', 3000);
+          }
+        }
+    })
   }
   
   // Este me permite reestablecer los campos del form y la varible submitted.

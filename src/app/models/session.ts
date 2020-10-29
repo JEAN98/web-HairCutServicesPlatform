@@ -9,7 +9,7 @@ export class Session {
      jwtService: JwtHelperService;
 
      constructor(sessionJson) {
-         this.access_token = sessionJson['access_token'];
+         this.access_token = sessionJson;
          this.jwtService = new JwtHelperService();
      }
  

@@ -43,10 +43,7 @@ export class RegisterComponent implements OnInit {
               private hsService: HairdressingSalonService,
               private localStorageService: LocalStorageService,
               private timeHelperService: TimeHelperService
-  ) 
-  { 
-
-  }
+  ){ }
 
   ngOnInit() {
     this.register_form = this.formBuilder.group({
