@@ -75,7 +75,7 @@
                             </div>
 
                             <!-- Cost -->
-                            <div class="col-auto col-lg-4 pb-3">
+                            <div class="col-auto col-lg-6 pb-3">
 
                                 <label class="blue-text">
                                     Costo en colones:
@@ -92,7 +92,7 @@
                             </div>
 
                             <!-- duration -->
-                            <div class="col-auto col-lg-4 pb-3">
+                            <div class="col-auto col-lg-6 pb-3">
 
                                 <label class="blue-text">
                                     Duración en minutos:
@@ -108,7 +108,7 @@
 
                             </div>
 
-                            <!-- Gender Id -->
+                            <!-- Gender Id 
                             <div class="col-auto col-lg-4 pb-3">
 
                                 <label class="blue-text">Género:</label>
@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div>-->
 
                         </div>
 
@@ -144,6 +144,7 @@
                 <table class="table table-hover table-fixed">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col">Código</th>
                             <th scope="col">Título</th>
                             <th scope="col">Costo</th>
                             <th scope="col">Duración</th>
@@ -151,9 +152,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let service of services_list">
-                            <td>Corte estandar caballero</td>
-                            <td>₡ 3500</td>
-                            <td>30 minutos</td>
+                            <td>{{service.code}}</td>
+                            <td>{{service.title}}</td>
+                            <td>₡ {{service.cost}}</td>
+                            <td>{{service.timeDuration}} min</td>
                         </tr>
                     </tbody>
                 </table>

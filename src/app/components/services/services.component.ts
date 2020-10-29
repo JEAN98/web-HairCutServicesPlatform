@@ -14,6 +14,8 @@ import { FormGroup,
 import { AlertService } from '../../services/alert.service';
 
 import 'rxjs/operators';
+import { HairdresserService } from 'src/app/services/hairdresser.service';
+import { HairdresserServiceModel } from 'src/app/models/hairdresser-service-model';
 
 @Component({
   selector: 'app-services',
@@ -27,10 +29,11 @@ export class ServicesComponent implements OnInit {
   public submitted: boolean = false;
 
    // Esta lista es solo de prueba para pintar varios servicios.
-   public services_list: any = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+   public services_list: HairdresserServiceModel[] = [];
   
   constructor(private formBuilder: FormBuilder,
               private alert_service: AlertService,
+              private hairdresserService: HairdresserService
   ) 
   { 
 
@@ -46,7 +49,7 @@ export class ServicesComponent implements OnInit {
       duration_min:   [""],
       gender_id:      [""],
     });
-  
+    this.load_hairdresser_services_list();
   }
   
   get f() { return this.service_form.controls; }
@@ -56,36 +59,35 @@ export class ServicesComponent implements OnInit {
     this.submitted = true;
     // Si el form es valido mandamos a llamar el metodo encargado de crear el servicio.
     if (this.service_form.valid) {
-      // Creamos el modelo del servicio para almacenarlo en la base de datos.
-      const service: any = {
-        salon_id:            1, //Este se debe de optener del objeto que esta en localstorage.
-        title:               this.service_form.value.title,
-        code:                this.service_form.value.code,
-        description:         this.service_form.value.description,
-        cost:                this.service_form.value.cost,
-        time_duration_min:   this.service_form.value.duration_min,
-        gender_id:           this.service_form.value.gender_id,
-        is_measurable:       true,
-      }
+      
+      var newService = new HairdresserServiceModel();
+    
+        newService.title =               this.service_form.value.title;
+        newService.code =                this.service_form.value.code;
+        newService.description =         this.service_form.value.description;
+        newService.cost=                this.service_form.value.cost;
+        newService.timeDuration =   this.service_form.value.duration_min;
+        newService.genderID =           1; //FIXME: In the future this one needs to be updated
+        newService.isMeasurable=       true;
+     
 
-      this.create_new_service(service);
+      this.create_new_service(newService);
       
     }
   }
   
   // Metodo que permite crear el nuevo servicio.
-  create_new_service(servicio: any){
+  create_new_service(newService: HairdresserServiceModel){
 
-    console.log(servicio);
-
-    // this._servicio_service.create_new_servicio(servicio).toPromise()
-    // .then((resp) => {
-    //   this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un servicio con éxito.', 3000);
-    //   this.resetForm();
-    // })
-    // .catch(err => {
-    //   this.alert_service.swal_create_messages('center', 'error', 'message', 3000);
-    // });
+     this.hairdresserService.createHairdresserService(newService).toPromise()
+     .then((resp) => {
+       this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un servicio con éxito.', 3000);
+       this.resetForm();
+       this.load_hairdresser_services_list();
+     })
+     .catch(err => {
+       this.alert_service.swal_create_messages('center', 'error', 'message', 3000);
+    });
   }
   
   // Este me permite reestablecer los campos del form y la varible submitted.
@@ -93,5 +95,22 @@ export class ServicesComponent implements OnInit {
     this.submitted  = false;
     this.service_form.reset();
   }
+
+  load_hairdresser_services_list()
+  {
+    this.hairdresserService.getHairdresserServiceList().toPromise()
+    .then((res) => {
+        this.set_hairdresser_services_list(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  set_hairdresser_services_list(res: any) {
+    this.services_list = res;
+    console.log(this.services_list);
+  }
+
 
 }

@@ -1,4 +1,4 @@
-export class HairdresserService {
+export class HairdresserServiceModel {
     id: number;
     title: string;
     code: string;
