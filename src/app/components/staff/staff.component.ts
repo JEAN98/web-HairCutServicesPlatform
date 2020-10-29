@@ -28,7 +28,7 @@ export class StaffComponent implements OnInit {
   public submitted: boolean = false;
 
   // Esta lista es solo de prueba para pintar varios staff.
-  public staff_list: any = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  public staff_list: Worker[] = [];
   
   constructor(private formBuilder: FormBuilder,
               private alert_service: AlertService,
@@ -44,6 +44,7 @@ export class StaffComponent implements OnInit {
       gender_id:            [""],
       birthday:             [""],
     });
+    this.load_worker_list();
   
   }
   
@@ -64,15 +65,29 @@ export class StaffComponent implements OnInit {
     }
   }
 
+  load_worker_list()
+  {
+    this.workerService.getWorkerList().toPromise()
+    .then((res) => {
+        this.set_worker_list(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  set_worker_list(res: any) {
+    this.staff_list = res;
+  }
   
   
   // Metodo que permite crear el nuevo staff.
   create_new_staff(staff: Worker){
-    console.log(staff);
     this.workerService.createWorker(staff).toPromise()
     .then((res) => {
       this.alert_service.swal_create_messages('center', 'succeess', 'El nuevo personal fue agregado existosamente', 3000);
       this.resetForm();
+      this.load_worker_list();
     })
     .catch(err => {
       console.log(err.error)
