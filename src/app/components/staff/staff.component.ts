@@ -63,26 +63,29 @@ export class StaffComponent implements OnInit {
       this.create_new_staff(newWorker);
     }
   }
+
+  
   
   // Metodo que permite crear el nuevo staff.
   create_new_staff(staff: Worker){
     console.log(staff);
     this.workerService.createWorker(staff).toPromise()
     .then((res) => {
-
+      this.alert_service.swal_create_messages('center', 'succeess', 'El nuevo personal fue agregado existosamente', 3000);
+      this.resetForm();
     })
-    .catch((error) => {
-        if(error["details"]!== null)
+    .catch(err => {
+      console.log(err.error)
+        if(err.error["details"]!== null)
         {
-          if(error["details"]["message"] === 'identification_card must be unique')
+          if(err.error["details"]["message"] === 'identification_card must be unique')
           {
-            this.alert_service.swal_create_messages('center', 'error', 'El número de la cédula debe ser único, el número selecionado ya existen en la base de datos', 3000);
+            this.alert_service.swal_create_messages('center', 'error', 'El número de la cédula debe ser único, el número selecionado ya existen en la base de datos', 4000);
           }
         }
     })
   }
   
-  // Este me permite reestablecer los campos del form y la varible submitted.
   resetForm() {
     this.submitted  = false;
     this.staff_form.reset();
