@@ -148,14 +148,16 @@
                             <th scope="col">Título</th>
                             <th scope="col">Costo</th>
                             <th scope="col">Duración</th>
+                            <th scope="col">Descripción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let service of services_list">
                             <td>{{service.code}}</td>
                             <td>{{service.title}}</td>
-                            <td>₡ {{service.cost}}</td>
-                            <td>{{service.timeDuration}} min</td>
+                            <td>₡{{service.cost}}</td>
+                            <td>{{service.timeDuration}}min</td>
+                            <td>{{service.description}} asdf asdfjkla sd asdfjlk asdfj asl;dkf asjdf;l aksdjfl ;askj asl;dkfj asd asdklfj asdlkfj asdf asdlkfj</td>
                         </tr>
                     </tbody>
                 </table>
