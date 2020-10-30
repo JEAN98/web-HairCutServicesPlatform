@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   public email_user;
   public password_user;
   public session: Session;
+  public sppinerClass:String = '';
 
   constructor(
     private router: Router,
@@ -47,16 +48,29 @@ export class LoginComponent implements OnInit {
 
   }
 
+  active_sppiner()
+  {
+    this.sppinerClass = 'spinner-border';
+  }
+
+  pause_sppiner()
+  {
+    this.sppinerClass = '';
+  }
+
   validate_data(email: string, password: string){
+    this.active_sppiner();
   this.authService.login(email,password).toPromise()
     .then((res) =>{
       this.session = new Session(res["token"]);
       this.storageService.saveSession(this.session);
       this.storageService.saveCurrentHS(res["hairdressingSalon"]);
       this.router.navigate(['/dashboard']);
+      this.pause_sppiner();
     })
     .catch(err => {
       this.alert_service.swal_create_messages('center', 'error', 'Credeciales invalidas', 3000);
+      this.pause_sppiner();
     })
   }
 }
