@@ -168,6 +168,10 @@ export class ScheduleComponent implements OnInit {
 
   set_schedules_list(res: any) {
     this.schedule_list = res;
+    this.schedule_list.forEach(schedule => {
+      schedule.shiftStarts = this.time_helper.convertToAmOrPMTime(schedule.shiftStarts);
+      schedule.shiftEnds = this.time_helper.convertToAmOrPMTime(schedule.shiftEnds);
+    });
     this.schedule_list.sort(function(a, b){
       return a.weekDayID > b.weekDayID;
     });
