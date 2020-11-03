@@ -91,9 +91,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let schedule of schedule_list_pinter">
-                            <td>Lunes</td>
-                            <td>7:00am a 5:00pm</td>
+                        <tr *ngFor="let schedule of schedule_list">
+                            <td>{{schedule.weekDay}}</td>
+                            <td>{{schedule.shiftStarts}} a {{schedule.shiftEnds}}</td>
                         </tr>
                     </tbody>
                 </table>
