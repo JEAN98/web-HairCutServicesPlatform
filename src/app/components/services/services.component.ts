@@ -86,7 +86,11 @@ export class ServicesComponent implements OnInit {
        this.load_hairdresser_services_list();
      })
      .catch(err => {
-       this.alert_service.swal_create_messages('center', 'error', 'message', 3000);
+       console.log(err);
+      if(err.error["details"]!== null)
+      {
+        this.alert_service.swal_create_messages('center', 'error', err.error["details"], 4000);
+      }
     });
   }
   
