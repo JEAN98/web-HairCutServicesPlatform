@@ -126,21 +126,27 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  
-  // Metodo que permite crear un nuevo horario.
   create_new_schedule(schedule_list: Schedule[]){
     console.log(schedule_list);
-    this.schedule_service.createSchedules(schedule_list).toPromise()
-    .then((resp)=>{
-      this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un nuevo horario.', 3000);
-      this.resetForm();
-      this.load_schedules();
-    })
-    .catch(err => {
-      console.log(err);
-    })
-
-
+    if(schedule_list.length > 0 )
+    {
+      if(!this.time_helper.validateTime(schedule_list[0].shiftStarts,schedule_list[0].shiftEnds))
+      {
+        console.log('La hora de inicio del horario no puede ser mayor a la hora final del horario');
+        this.alert_service.swal_create_messages('center', 'error', 'La hora de inicio del horario no puede ser mayor a la hora final del horario', 3000);
+      }
+      else{
+        this.schedule_service.createSchedules(schedule_list).toPromise()
+        .then((resp)=>{
+          this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un nuevo horario.', 3000);
+          this.resetForm();
+          this.load_schedules();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+    }
   }
 
   // Este me permite restablecer los campos del form y la varible submitted.
