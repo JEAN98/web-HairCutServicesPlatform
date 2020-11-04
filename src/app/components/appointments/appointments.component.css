@@ -17,7 +17,24 @@ textarea {
     margin-top: 32px;
 }
 
+.centerStatus {
+    text-align: center;
+}
 
+.appoimentCompleted
+{
+    color: gray;
+}
+
+.appoimentActive
+{
+    color: #28a745;
+}
+
+.appoimentPeding
+{
+    color: lightskyblue;
+}
 /* Cards */
 
 

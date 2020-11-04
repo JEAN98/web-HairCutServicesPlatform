@@ -55,14 +55,45 @@ export class AppointmentsComponent implements OnInit {
   }
 
   set_appoiment_list(res: any) {
+    this.appointment_list = [];
     this.appointment_list = res;
     for (let index = 0; index < this.appointment_list.length; index++) {
+      this.appointment_list[index].appoimentStatus = this.validate_appoiment_status(this.appointment_list[index].shiftStarts,this.appointment_list[index].shiftEnds);
+
       let startTime = (this.appointment_list[index].shiftStarts).toString().split(" ")[1];
       let endTime = (this.appointment_list[index].shiftEnds).toString().split(" ")[1];
-
       this.appointment_list[index].date =  (this.appointment_list[index].shiftStarts).toString().split(" ")[0];
       this.appointment_list[index].shiftStarts = this.timeHelper.convertToAmOrPMTime(startTime);
       this.appointment_list[index].shiftEnds = this.timeHelper.convertToAmOrPMTime(endTime);
+    }
+   // console.log(this.appointment_list );
+  }
+
+  validate_appoiment_status(shiftStarts,shiftEnds)
+  {
+    let startsTime = new Date(shiftStarts);
+    let endsTime = new Date(shiftEnds);
+    var now = new Date(Date.now());
+    let colorClass = 'centerStatus';
+    if(endsTime < now)
+    {
+      return  {
+          status: 'Completada',
+          color: colorClass + ' appoimentCompleted'
+      }
+    }
+    else if(startsTime <= now && now <= endsTime)
+    {
+      return  {
+        status: 'Activa',
+        color: colorClass + ' appoimentActive'
+      }
+    }
+    else{
+      return  {
+        status: 'Pendiente',
+        color: colorClass + ' appoimentPeding'
+      }
     }
   }
 

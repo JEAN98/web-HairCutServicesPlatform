@@ -44,6 +44,7 @@
                                 <p class="card-text">Tiempo Total: {{appointment.totalTime}}min</p>
                                 <p class="card-text">Costo Total: ₡{{appointment.totalCost}}</p>
                                 <p class="card-text">{{appointment.shiftStarts}} - {{appointment.shiftEnds}}</p>
+                                <p [className]="appointment.appoimentStatus.color">{{appointment.appoimentStatus.status}}</p>
                                 <button class="btn btn-primary btn-block" (click)="search_user_service()">
                                     <i class=" fa fa-eye "></i>
                                     Ver servicios
