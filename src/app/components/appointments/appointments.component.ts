@@ -42,7 +42,7 @@ export class AppointmentsComponent implements OnInit {
             this.end_date.toString(),
             ).toPromise()
           .then((res) => {
-            console.log(res);
+            this.set_appoiment_list(res);
           }).catch(err => {
             console.log(err);
           })
@@ -54,11 +54,16 @@ export class AppointmentsComponent implements OnInit {
       }
   }
 
-  specify_date_format(date:Date)
-  {
-    let dateSplitOut = date.toString().split('-');
-    let result =  dateSplitOut[0] + '-' +dateSplitOut[2]+ '-' + dateSplitOut[1];
-    return result;
+  set_appoiment_list(res: any) {
+    this.appointment_list = res;
+    for (let index = 0; index < this.appointment_list.length; index++) {
+      let startTime = (this.appointment_list[index].shiftStarts).toString().split(" ")[1];
+      let endTime = (this.appointment_list[index].shiftEnds).toString().split(" ")[1];
+
+      this.appointment_list[index].date =  (this.appointment_list[index].shiftStarts).toString().split(" ")[0];
+      this.appointment_list[index].shiftStarts = this.timeHelper.convertToAmOrPMTime(startTime);
+      this.appointment_list[index].shiftEnds = this.timeHelper.convertToAmOrPMTime(endTime);
+    }
   }
 
   search_user_service(){

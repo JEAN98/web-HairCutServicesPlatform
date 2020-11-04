@@ -38,25 +38,25 @@
                     <div class="col mb-4" *ngFor="let appointment of appointment_list">
 
                         <div class="card border-success mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-transparent border-success">07-10-2020</div>
+                            <div class="card-header bg-transparent border-success">{{appointment.date}}</div>
                             <div class="card-body text-success">
-                                <h5 class="card-title">Steve Araya Solorzano</h5>
-                                <p class="card-text">Tiempo Total: 30m</p>
-                                <p class="card-text">Costo Total: ₡3500</p>
-                                <p class="card-text">03:00pm - 03:30pm</p>
+                                <h5 class="card-title">{{appointment.clientName}}</h5>
+                                <p class="card-text">Tiempo Total: {{appointment.totalTime}}min</p>
+                                <p class="card-text">Costo Total: ₡{{appointment.totalCost}}</p>
+                                <p class="card-text">{{appointment.shiftStarts}} - {{appointment.shiftEnds}}</p>
                                 <button class="btn btn-primary btn-block" (click)="search_user_service()">
                                     <i class=" fa fa-eye "></i>
                                     Ver servicios
                                 </button>
                             </div>
-                            <div class="card-footer bg-transparent border-success ">Jean Carlos Vega (Doggy)</div>
+                            <div class="card-footer bg-transparent border-success ">{{appointment.workerName}}</div>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-            
+
         <div *ngIf="is_services_view_available" class="mb-3 ">
 
             <div class="row row-cols-1 row-cols-md-3 ml-1 mr-1 mt-4 mb-4 ">
