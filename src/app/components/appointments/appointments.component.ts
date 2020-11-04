@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/services/alert.service';
+import { AppoimentService } from 'src/app/services/appoiment.service';
+import { TimeHelperService } from 'src/app/services/time-helper.service';
 
 @Component({
   selector: 'app-appointments',
@@ -15,17 +18,47 @@ export class AppointmentsComponent implements OnInit {
     public is_services_view_available: boolean = false;
 
     // Esta lista es solo de prueba para pintar varias targetas.
-    public appointment_list: any = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    public appointment_list: any = [];
     // Esta lista es solo de prueba para pintar varias targetas de servicios.
     public user_services_list: any = [1,2,3,4,5];
 
-  constructor() { }
+  constructor( private alert_service: AlertService, private appoimentService:AppoimentService,
+    private timeHelper:TimeHelperService) { }
 
   ngOnInit(): void {
   }
 
   search_appointments(){
+    console.log(this.initial_date.toString());
+      if(this.initial_date !== undefined && this.end_date !== undefined)
+      { 
+        if( this.initial_date > this.end_date)
+        {
+          this.alert_service.swal_create_messages('center', 'error', 'La fecha de inicio debe ser menor a la fecha final', 3000);
+        }
+        else{
+          this.appoimentService.getAppoimentList( 
+            this.initial_date.toString(),
+            this.end_date.toString(),
+            ).toPromise()
+          .then((res) => {
+            console.log(res);
+          }).catch(err => {
+            console.log(err);
+          })
+        }
+       
+      }
+      else{
+        this.alert_service.swal_create_messages('center', 'error', 'Debes de seleccionar las fechas para establecer el rango de búsqueda.', 3000);
+      }
+  }
 
+  specify_date_format(date:Date)
+  {
+    let dateSplitOut = date.toString().split('-');
+    let result =  dateSplitOut[0] + '-' +dateSplitOut[2]+ '-' + dateSplitOut[1];
+    return result;
   }
 
   search_user_service(){
