@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
+import { AppoimentResourceService } from 'src/app/services/appoiment-resource.service';
 import { AppoimentService } from 'src/app/services/appoiment.service';
 import { TimeHelperService } from 'src/app/services/time-helper.service';
 
@@ -13,16 +14,19 @@ export class AppointmentsComponent implements OnInit {
     // Filtros mediante rango de fechas.
     public initial_date: Date;
     public end_date: Date;
+    public sppinerClass:String = '';
 
     public loading: boolean;
     public is_services_view_available: boolean = false;
-
+    public current_client_name:String = '';
     // Esta lista es solo de prueba para pintar varias targetas.
-    public appointment_list: any = [];
+    public appoiment_list: any = [];
     // Esta lista es solo de prueba para pintar varias targetas de servicios.
-    public user_services_list: any = [1,2,3,4,5];
+    public appoiment_services_list: any = [1,2,3,4,5];
 
-  constructor( private alert_service: AlertService, private appoimentService:AppoimentService,
+  constructor( private alert_service: AlertService, 
+    private appoimentService:AppoimentService,
+    private appoimentResource:AppoimentResourceService,
     private timeHelper:TimeHelperService) { }
 
   ngOnInit(): void {
@@ -37,14 +41,17 @@ export class AppointmentsComponent implements OnInit {
           this.alert_service.swal_create_messages('center', 'error', 'La fecha de inicio debe ser menor a la fecha final', 3000);
         }
         else{
+          this.active_sppiner();
           this.appoimentService.getAppoimentList( 
             this.initial_date.toString(),
             this.end_date.toString(),
             ).toPromise()
           .then((res) => {
             this.set_appoiment_list(res);
+            this.pause_sppiner();
           }).catch(err => {
             console.log(err);
+            this.pause_sppiner();
           })
         }
        
@@ -54,19 +61,63 @@ export class AppointmentsComponent implements OnInit {
       }
   }
 
-  set_appoiment_list(res: any) {
-    this.appointment_list = [];
-    this.appointment_list = res;
-    for (let index = 0; index < this.appointment_list.length; index++) {
-      this.appointment_list[index].appoimentStatus = this.validate_appoiment_status(this.appointment_list[index].shiftStarts,this.appointment_list[index].shiftEnds);
+  active_sppiner()
+  {
+    this.sppinerClass = 'spinner-border';
+  }
 
-      let startTime = (this.appointment_list[index].shiftStarts).toString().split(" ")[1];
-      let endTime = (this.appointment_list[index].shiftEnds).toString().split(" ")[1];
-      this.appointment_list[index].date =  (this.appointment_list[index].shiftStarts).toString().split(" ")[0];
-      this.appointment_list[index].shiftStarts = this.timeHelper.convertToAmOrPMTime(startTime);
-      this.appointment_list[index].shiftEnds = this.timeHelper.convertToAmOrPMTime(endTime);
+  pause_sppiner()
+  {
+    this.sppinerClass = '';
+  }
+
+
+  set_appoiment_list(res: any) {
+    this.appoiment_list = [];
+    this.appoiment_list = res;
+    for (let index = 0; index < this.appoiment_list.length; index++) {
+      this.appoiment_list[index].appoimentStatus = this.validate_appoiment_status(this.appoiment_list[index].shiftStarts,this.appoiment_list[index].shiftEnds);
+
+      let startTime = (this.appoiment_list[index].shiftStarts).toString().split(" ")[1];
+      let endTime = (this.appoiment_list[index].shiftEnds).toString().split(" ")[1];
+      this.appoiment_list[index].date =  (this.appoiment_list[index].shiftStarts).toString().split(" ")[0];
+      this.appoiment_list[index].shiftStarts = this.timeHelper.convertToAmOrPMTime(startTime);
+      this.appoiment_list[index].shiftEnds = this.timeHelper.convertToAmOrPMTime(endTime);
     }
-   // console.log(this.appointment_list );
+   // console.log(this.appoiment_list );
+  }
+
+  load_appoiment_services(appoimentID)
+  {
+    this.active_sppiner();
+    this.appoimentResource.getAppoimentServices(appoimentID).toPromise()
+    .then((res =>{
+        console.log(res);
+        this.set_appoiment_services_list(res);
+        this.set_current_client_name(appoimentID);
+        this.pause_sppiner();
+        this.is_services_view_available = true;
+    }))
+    .catch(err =>{
+      console.log(err);
+      this.pause_sppiner();
+    })
+  }
+
+  set_appoiment_services_list(newList)
+  {
+    this.appoiment_services_list = newList;
+  }
+
+  set_current_client_name(appoimentID)
+  {
+    for (let index = 0; index < this.appoiment_list.length; index++) {
+        if(this.appoiment_list[index].appoimentID == appoimentID)
+        {
+          this.current_client_name = this.appoiment_list[index].clientName;
+          return;
+        }      
+    }
   }
 
   validate_appoiment_status(shiftStarts,shiftEnds)
@@ -95,10 +146,6 @@ export class AppointmentsComponent implements OnInit {
         color: colorClass + ' appoimentPeding'
       }
     }
-  }
-
-  search_user_service(){
-    this.is_services_view_available = true;
   }
 
   cancel_services_view(){
