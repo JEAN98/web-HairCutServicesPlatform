@@ -26,6 +26,10 @@ textarea {
     color: gray;
 }
 
+.grayout {
+  color: grey;
+}
+
 .appoimentActive
 {
     color: #28a745;

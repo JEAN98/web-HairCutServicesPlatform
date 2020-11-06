@@ -19,6 +19,8 @@ export class AppointmentsComponent implements OnInit {
     public loading: boolean;
     public is_services_view_available: boolean = false;
     public current_client_name:String = '';
+
+    public appoiment_message:String = 'Selecione el rango de fechas para ver las citas';
     // Esta lista es solo de prueba para pintar varias targetas.
     public appoiment_list: any = [];
     // Esta lista es solo de prueba para pintar varias targetas de servicios.
@@ -75,6 +77,7 @@ export class AppointmentsComponent implements OnInit {
   set_appoiment_list(res: any) {
     this.appoiment_list = [];
     this.appoiment_list = res;
+    this.appoiment_message = 'Opss... No se encontaron citas para el rango de fechas selecionado';
     for (let index = 0; index < this.appoiment_list.length; index++) {
       this.appoiment_list[index].appoimentStatus = this.validate_appoiment_status(this.appoiment_list[index].shiftStarts,this.appoiment_list[index].shiftEnds);
 

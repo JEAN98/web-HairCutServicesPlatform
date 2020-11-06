@@ -38,10 +38,11 @@
                       <span class="sr-only">Cargando...</span>
                     </div>
                   </div>
+                  <br>
+                  <div class="centerStatus grayout" *ngIf="appoiment_list.length==0">{{appoiment_message}}</div>
                 <div class="row row-cols-md-3">
-
+                    
                     <div class="col mb-4" *ngFor="let appointment of appoiment_list">
-
                         <div class="card border-success mb-3" style="max-width: 18rem;">
                             <div class="card-header bg-transparent border-success">{{appointment.date}}</div>
                             <div class="card-body text-success">
