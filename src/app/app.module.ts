@@ -13,6 +13,7 @@ import { ServicesComponent } from './components/services/services.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { ReportComponent } from './components/report/report.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
     ServicesComponent,
     AppointmentsComponent,
     FooterComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
