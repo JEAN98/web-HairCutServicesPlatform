@@ -12,6 +12,7 @@ export class ReportComponent implements OnInit {
 
   public graphic: any;
   public sppinerClass:String = '';
+  public emptyListMessage = 'Todavía no existe información registrada por un cliente';
   public isRendering = true;
   public top10Clients = [];
   constructor(private reportService: ReportService) {

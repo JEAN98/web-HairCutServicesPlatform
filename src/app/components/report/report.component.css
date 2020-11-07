@@ -13,6 +13,13 @@ select {
 }
 
 
+.grayout {
+    color: grey;
+  }
+
+  .centerStatus {
+    text-align: center;
+}
 /* 
 #E1834D
 #DE5F60
