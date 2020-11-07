@@ -10,11 +10,10 @@ import { ReportService } from 'src/app/services/report.service';
 })
 export class ReportComponent implements OnInit {
 
-  public labels:string[] = [];
-  public data:number[] = [];
   public graphic: any;
-
+  public sppinerClass:String = '';
   public isRendering = true;
+  public top10Clients = [];
   constructor(private reportService: ReportService) {
   
    }
@@ -27,15 +26,33 @@ export class ReportComponent implements OnInit {
     this.load_reports();
   }
 
+  active_sppiner()
+  {
+    this.sppinerClass = 'spinner-border';
+  }
+
+  pause_sppiner()
+  {
+    this.sppinerClass = '';
+  }
   load_reports()
   {
+    this.active_sppiner();
     this.reportService.getReportList().toPromise()
     .then((res =>{
         this.set_percetange_services_list(res["percentageOfServices"]);
+        this.set_top_client_list(res["topClients"]);
+        this.pause_sppiner();
     }))
     .catch(err =>{
       console.log(err);
+      this.pause_sppiner();
     })
+  }
+
+  set_top_client_list(clients:[])
+  {
+      this.top10Clients = clients;
   }
 
   set_percetange_services_list(percentageOfServicesList:[])
@@ -47,9 +64,9 @@ export class ReportComponent implements OnInit {
         labelList.push(percentageOfServicesList[index]["title"]);
       }
       this.graphic = {
-        "labels":labelList,
-        "data":percetangeList,
-        "type":"doughnut"
+        labels:labelList,
+        data:percetangeList,
+        type:"doughnut"
       };
       this.isRendering = false;
       /*

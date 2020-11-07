@@ -24,7 +24,7 @@ export class AppointmentsComponent implements OnInit {
     // Esta lista es solo de prueba para pintar varias targetas.
     public appoiment_list: any = [];
     // Esta lista es solo de prueba para pintar varias targetas de servicios.
-    public appoiment_services_list: any = [1,2,3,4,5];
+    public appoiment_services_list: any = [];
 
   constructor( private alert_service: AlertService, 
     private appoimentService:AppoimentService,
