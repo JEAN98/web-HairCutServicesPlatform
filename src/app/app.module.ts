@@ -14,6 +14,8 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { FooterComponent } from './components/footer/footer.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ReportComponent } from './components/report/report.component';
+import { ChartsModule } from 'ng2-charts';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ReportComponent } from './components/report/report.component';
     AppointmentsComponent,
     FooterComponent,
     ScheduleComponent,
-    ReportComponent
+    ReportComponent,
+    DonutChartComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { ReportComponent } from './components/report/report.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

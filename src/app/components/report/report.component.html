@@ -5,6 +5,14 @@
             Reportes
         </h2>
         <div>
+            <div *ngIf="!isRendering"> 
+                <app-donut-chart
+                    [doughnutChartLabels] = "graphic.labels"
+                    [doughnutChartData] = "graphic.data"
+                    doughnutChartType = "doughnut">
+                </app-donut-chart>
+            </div>
         </div>
+          
     </div>
 </div>
