@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
   public image_name: string = 'Seleccione una imagen...';
   public imageBase64AsString: string;
   public hairdressingSalon:HairdressingSalon = new HairdressingSalon();
+  public sppinerClass:String = '';
 
   constructor(
               private formBuilder: FormBuilder,
@@ -92,6 +93,16 @@ export class RegisterComponent implements OnInit {
     
   }
 
+  active_sppiner()
+  {
+    this.sppinerClass = 'spinner-border';
+  }
+
+  pause_sppiner()
+  {
+    this.sppinerClass = '';
+  }
+
   async getGenderList() {
     let result = await this.genderService.getGenderList().toPromise()
    console.log(result);
@@ -109,14 +120,17 @@ export class RegisterComponent implements OnInit {
       this.alert_service.swal_create_messages('center', 'error', 'Se debe agregar una foto para completar el registro', 3000);
     }
     else{
+      this.active_sppiner();
       this.hsService.createHS(this.hairdressingSalon).toPromise()
       .then((res) => {
-        this.localStorageService.saveSession(new Session(res['session']));
+        this.localStorageService.saveSession(new Session(res['token']));
         this.localStorageService.saveCurrentHS(res['hairdressingSalon']);
         this.router.navigate(['/dashboard']);
+        this.pause_sppiner();
       })
       .catch((err) => {
         this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
+        this.pause_sppiner();
       })
        //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
     }

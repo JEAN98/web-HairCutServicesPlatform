@@ -72,7 +72,7 @@
             </div>
 
             <!-- Photo -->
-            <div class="col col-lg-12 pb-1">
+            <div class="col col-lg-10 pb-1">
 
                 <div class="custom-file">
                     <input type="file" name="photo" class="form-control custom-file-input" id="photo" accept=".png" (change)="upload_image($event.target.files[0])">
@@ -83,7 +83,7 @@
             </div>
 
             <!-- TODO: REMOVE THIS EXMAPLE -->
-            <div class="col col-lg-12 pb-1">
+            <div class="col col-lg-2 pb-1">
                 <div class="col align-self-center">
                     <img [src]="imageBase64AsString" width="50" height="50">
                 </div>
@@ -91,7 +91,7 @@
           
 
             <!-- WebSite -->
-            <div class="col col-lg-6 pb-1">
+            <div class="col col-lg-12 pb-1">
 
                 <label class="blue-text">
                     Sitio Web:
@@ -102,7 +102,7 @@
             </div>
 
             <!-- Gender -->
-            <div class="col col-lg-6 pb-1">
+            <!-- <div class="col col-lg-6 pb-1">
 
                 <label class="blue-text">Géneros de atención:</label>
 
@@ -115,7 +115,7 @@
 
                 </select>
 
-            </div>
+            </div> -->
 
             <!-- Password -->
             <div class="col col-lg-12 pb-1">
@@ -132,7 +132,12 @@
             <button *ngIf="!loading" [disabled]="f.invalid" type="submit" class="btn btn-primary btn-block" value="Enviar">
                 Crear BaberShop
             </button>
-
+            <br>
+            <div class="d-flex justify-content-center">
+                <div [ngClass]="sppinerClass" role="status">
+                  <span class="sr-only">Cargando...</span>
+                </div>
+              </div>
             <button *ngIf="loading" [disabled]="true" class="btn btn-primary btn-block">
                 <i class="fa fa-spin fa-sync"></i>
                 Creando BaberShop...
