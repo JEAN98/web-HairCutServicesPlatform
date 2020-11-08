@@ -16,8 +16,10 @@
         </ul>
         <div class="tab-content mt-4" id="myTabContent">
             <div class="tab-pane fade show active" id="service" role="tabpanel" aria-labelledby="service-tab">
-                <div [ngClass]="sppinerClass" role="status">
-                    <span class="sr-only">Cargando...</span>
+                <div class="d-flex justify-content-center">
+                    <div [ngClass]="sppinerClass" role="status">
+                      <span class="sr-only">Cargando...</span>
+                    </div>
                   </div>
                 <div>
                     <div *ngIf="!isRendering"> 
