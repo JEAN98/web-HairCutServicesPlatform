@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Session } from '../models/session';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +9,14 @@ import { HttpHeaders } from '@angular/common/http';
 export class HeaderService {
   public urlBase: string;
   public token: string;
-  constructor() {
+  constructor(private sessionService: SessionService) {
     this.urlBase  = '/api/';
   }
+
+  loadSession():Session{
+    return this.sessionService.getCurrentSession();
+  }
+
 
   getHeader() {
     const header = new HttpHeaders({
@@ -20,21 +27,26 @@ export class HeaderService {
     return {headers: header};
   }
 
-  getHeaderToken() {
-    //TODO: Update it in oder to handle the token from localStorage
-    //this.token = localStorage.getItem('token');
-    this.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MSwiZW1haWwiOiJzYWxvblRlc3RAZ21haWwuY29tIiwibmFtZSI6IlNhbG9uIFRlc3QiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAzNjU5Mjk4LCJleHAiOjE2MDM3NDU2OTh9.qubhGnrsQElgNRzSgYMZuMAJCzb6FANVaBPd_z6K7Xj2EP5e72rZ1EAFb0-5z7PnIsx3jXC_WMRQocUYOnH7Hg';
-    const header = new HttpHeaders({
-
-      // tslint:disable-next-line:object-literal-key-quotes
-      'Accept': 'text/html, application/xhtml+xml, */*',
-      'Content-Type': 'application/json',
-      // tslint:disable-next-line:object-literal-key-quotes
-      'Authorization': this.token
-
-    });
-
+  getHeaderLogin() {
+    // tslint:disable-next-line:new-parens
+    const header = new HttpHeaders;
+    header.append('Content-Type', 'application/x-www-form-urlencoded');
     return {headers: header};
-
   }
+
+
+  getHeaderToken() {
+    /*  const header = new HttpHeaders({
+        'Content-Type': 'application/json',
+        // tslint:disable-next-line:object-literal-key-quotes
+        'Authorization': 'Bearer ' + this.session.access_token
+      }); */
+      console.log(this.loadSession().access_token, 'acces_token');
+      const header = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.loadSession().access_token
+      });
+  
+      return {headers: header};
+    }
 }

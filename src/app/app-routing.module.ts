@@ -8,6 +8,8 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { ServicesComponent }     from './components/services/services.component';
 import { StaffComponent }        from './components/staff/staff.component';
 import { ScheduleComponent }     from './components/schedule/schedule.component';
+import { ReportComponent }     from './components/report/report.component';
+
 
 
 const routes: Routes = [
@@ -18,6 +20,7 @@ const routes: Routes = [
     {  path: 'services', component: ServicesComponent  },
     {  path: 'staff', component: StaffComponent  },
     {  path: 'schedule', component: ScheduleComponent  },
+    {  path: 'report', component: ReportComponent  },
   ]
   },
   {  path: 'login', component: LoginComponent  },

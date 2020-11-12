@@ -31,25 +31,32 @@
 
                 </div>
             </div>
+           
             <div class="card-body">
-
+                <div class="d-flex justify-content-center">
+                    <div [ngClass]="sppinerClass" role="status">
+                      <span class="sr-only">Cargando...</span>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="centerStatus grayout" *ngIf="appoiment_list.length==0">{{appoiment_message}}</div>
                 <div class="row row-cols-md-3">
-
-                    <div class="col mb-4" *ngFor="let appointment of appointment_list">
-
+                    
+                    <div class="col mb-4" *ngFor="let appointment of appoiment_list">
                         <div class="card border-success mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-transparent border-success">07-10-2020</div>
+                            <div class="card-header bg-transparent border-success">{{appointment.date}}</div>
                             <div class="card-body text-success">
-                                <h5 class="card-title">Steve Araya Solorzano</h5>
-                                <p class="card-text">Tiempo Total: 30m</p>
-                                <p class="card-text">Costo Total: ₡3500</p>
-                                <p class="card-text">03:00pm - 03:30pm</p>
-                                <button class="btn btn-primary btn-block" (click)="search_user_service()">
+                                <h5 class="card-title">{{appointment.clientName}}</h5>
+                                <p class="card-text">Tiempo Total: {{appointment.totalTime}}min</p>
+                                <p class="card-text">Costo Total: ₡{{appointment.totalCost}}</p>
+                                <p class="card-text">{{appointment.shiftStarts}} - {{appointment.shiftEnds}}</p>
+                                <p [className]="appointment.appoimentStatus.color">{{appointment.appoimentStatus.status}}</p>
+                                <button class="btn btn-primary btn-block" (click)="load_appoiment_services(appointment.appoimentID)">
                                     <i class=" fa fa-eye "></i>
                                     Ver servicios
                                 </button>
                             </div>
-                            <div class="card-footer bg-transparent border-success ">Jean Carlos Vega (Doggy)</div>
+                            <div class="card-footer bg-transparent border-success ">{{appointment.workerName}}</div>
                         </div>
 
                     </div>
@@ -68,22 +75,21 @@
                     </button>
                 </div>
                 <div class="col-md-6 user-name-box ">
-                    <h5 class="card-title user-name ">Steve Araya Solórzano</h5>
+                    <h5 class="card-title user-name ">{{current_client_name}}</h5>
                 </div>
 
             </div>
 
             <div class="div-appointments">
-                <div class="col mb-10 mb-3 " *ngFor="let service of user_services_list ">
+                <div class="col mb-10 mb-3 " *ngFor="let service of appoiment_services_list ">
                     <div class="card text-center ">
                         <div class="card-header ">
-                            Corte de pelo sencillo
+                            {{service.title}}
                         </div>
                         <div class="card-body ">
-                            <h5 class="card-title ">Código: CPS-01</h5>
-                            <p class="card-text ">Descripción: Esto seria la descripción del servicio que viene de los servicios ofertados por la barber shop</p>
-                            <p class="card-text ">Costo: ₡3500</p>
-                            <p class="card-text ">Duración: 30 minutos</p>
+                            <p class="card-text ">Descripción: {{service.description}}</p>
+                            <p class="card-text ">Costo: ₡{{service.cost}}</p>
+                            <p class="card-text ">Duración: {{service.timeDurationMin}}min</p>
                         </div>
                     </div>
 

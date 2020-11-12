@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-lg-8 form-container">
+    <div class="col-lg-10 form-container">
 
         <h2 class="text-center bg-primary text-light py-2 text-uppercase main-title mt-5 mb-4">
             Personal
@@ -48,33 +48,22 @@
                                 <label class="blue-text">
                                     Apellidos:
                                 </label>
-                                <input type="string" formControlName="last_name" name="last_name" class="form-control" id="last_name" placeholder="Apellidos del colaborador" [ngClass]=" {'is-invalid': submitted && f.last_name.errors } " minlength=3 maxlength=100 required>
+                                <input type="string" formControlName="last_name" name="last_name" autocomplete="off" class="form-control" id="last_name" placeholder="Apellidos del colaborador" [ngClass]=" {'is-invalid': submitted && f.last_name.errors } " minlength=3 maxlength=100 required>
+                                
                                 <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
                                     <div *ngIf="f.last_name.errors.required">
                                         Apellidos del colaborador requerido.
                                     </div>
                                 </div>
                             </div>
-                            <!-- Birthday -->
-                            <div class="col-auto col-lg-6 pb-3">
-                                <label class="blue-text">
-                                    Fecha de Nacimiento:
-                                </label>
-                                <input type="date" formControlName="birthday" name="birthday" class="form-control" id="birthday" [ngClass]=" {'is-invalid': submitted && f.birthday.errors } " required>
-                                <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
-                                    <div *ngIf="f.birthday.errors.required">
-                                        Fecha requerida.
-                                    </div>
-                                </div>
-                            </div>
                             <!-- Gender Id -->
-                            <div class="col-auto col-lg-6 pb-3">
+                            <div class="col-auto col-lg-12 pb-3">
                                 <label class="blue-text">Género:</label>
                                 <select class="form-control" formControlName="gender_id" name="gender_id" id="gender_id" [ngClass]="{ 'is-invalid': submitted && f.gender_id.errors }" required>
                                     <option selected value="">Seleccione el género...</option>
-                                    <option value="0">Masculino</option>
-                                    <option value="1">Femenino</option>
-                                    <option value="2">Otro</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Otro</option>
                                 </select>
                                 <div *ngIf="submitted && f.gender_id.errors" class="invalid-feedback">
                                     <div *ngIf="f.gender_id.errors.required">
@@ -96,15 +85,13 @@
                             <th scope="col">Cédula</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
-                            <th scope="col">Fecha de Nacimiento</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let staff of staff_list">
-                            <td>206950338</td>
-                            <td>Steve</td>
-                            <td>Araya Solorzano</td>
-                            <td>05/01/1992</td>
+                            <td>{{staff.identificationCard}}</td>
+                            <td>{{staff.firstName}}</td>
+                            <td>{{staff.lastName}}</td>
                         </tr>
                     </tbody>
                 </table>

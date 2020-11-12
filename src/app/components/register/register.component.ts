@@ -13,6 +13,12 @@ import { FormGroup,
 import { AlertService } from '../../services/alert.service';
 import { from } from 'rxjs';
 import { GenderService } from 'src/app/services/gender.service';
+import { HairdressingSalonService } from 'src/app/services/hairdressing-salon.service';
+import { HairdressingSalon } from 'src/app/models/hairdressing-salon';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Router } from '@angular/router';
+import { Session }               from '../../models/session';
+import { TimeHelperService } from 'src/app/services/time-helper.service';
 
 @Component({
   selector: 'app-register',
@@ -26,16 +32,19 @@ export class RegisterComponent implements OnInit {
   public loading: boolean   = false;
   public uploadFile: File;
   public image_name: string = 'Seleccione una imagen...';
-  public imageBase64: any;
+  public imageBase64AsString: string;
+  public hairdressingSalon:HairdressingSalon = new HairdressingSalon();
+  public sppinerClass:String = '';
 
   constructor(
               private formBuilder: FormBuilder,
               private alert_service: AlertService,
-              private genderService: GenderService
-  ) 
-  { 
-
-  }
+              private router: Router,
+              private genderService: GenderService,
+              private hsService: HairdressingSalonService,
+              private localStorageService: LocalStorageService,
+              private timeHelperService: TimeHelperService
+  ){ }
 
   ngOnInit() {
     this.register_form = this.formBuilder.group({
@@ -47,11 +56,11 @@ export class RegisterComponent implements OnInit {
       start_time:       [''],
       end_time:         [''],
       // photo:            [''],
-      website:          [''],
+      website:          [[''],],
       gender:           [''],
       password:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
     });
-    this.getGenderList();
+    //this.getGenderList();
   }
 
   get f() { return this.register_form.controls; }
@@ -62,31 +71,36 @@ export class RegisterComponent implements OnInit {
   // Este me permite crear nuevas barbershops.
   onSubmit() {
     this.submitted = true;
-
     console.log(this.register_form.valid);
     console.log(this.register_form.value);
 
     // Si el form es valido mandamos a llamar el metodo encargado de crear la nueva barbershop.
     if (this.register_form.valid) {
-
-      const barberShop: any = {
-        name:         this.register_form.value.name,
-        description:  this.register_form.value.description,
-        email:        this.register_form.value.email,
-        latitud:      this.register_form.value.latitud,
-        longitud:     this.register_form.value.longitud,
-        lunch_starts: this.register_form.value.start_time,
-        lunch_ends:   this.register_form.value.end_time,
-        photo:        this.uploadFile,
-        website:      this.register_form.value.website,
-        gender:       this.register_form.value.gender,
-        password:     this.register_form.value.password,
-      }
-
-      this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
-      console.log(barberShop);
-
+      
+      this.hairdressingSalon.name = this.register_form.value.name;
+      this.hairdressingSalon.description = this.register_form.value.description;
+      this.hairdressingSalon.email = this.register_form.value.email;
+      this.hairdressingSalon.latitud = this.register_form.value.latitud;
+      this.hairdressingSalon.longitud =     this.register_form.value.longitud;
+      this.hairdressingSalon.lunchStarts = this.register_form.value.start_time + ':00';
+      this.hairdressingSalon.lunchEnds =   this.register_form.value.end_time + ':00';
+      this.hairdressingSalon.website =      this.register_form.value.website;
+      this.hairdressingSalon.genderID =      1; //FIXME: Men as default
+      this.hairdressingSalon.password =     this.register_form.value.password;
+      this.hairdressingSalon.photo = this.imageBase64AsString;
+      this.createHS();
     }
+    
+  }
+
+  active_sppiner()
+  {
+    this.sppinerClass = 'spinner-border';
+  }
+
+  pause_sppiner()
+  {
+    this.sppinerClass = '';
   }
 
   async getGenderList() {
@@ -94,8 +108,35 @@ export class RegisterComponent implements OnInit {
    console.log(result);
   }
 
-   upload_image( file: File ) {
+ createHS() {
+   console.log('createHS');
+    if(!this.timeHelperService.validateTime( this.hairdressingSalon.lunchStarts, this.hairdressingSalon.lunchEnds))
+    {
+      console.log('La hora de inicio del almuerzo no puede ser mayor a la hora final del almuerzo');
+      this.alert_service.swal_create_messages('center', 'error', 'La hora de inicio del almuerzo no puede ser menor a la hora final', 3000);
+    }
+    else if(this.uploadFile == null)
+    {
+      this.alert_service.swal_create_messages('center', 'error', 'Se debe agregar una foto para completar el registro', 3000);
+    }
+    else{
+      this.active_sppiner();
+      this.hsService.createHS(this.hairdressingSalon).toPromise()
+      .then((res) => {
+        this.localStorageService.saveSession(new Session(res['token']));
+        this.localStorageService.saveCurrentHS(res['hairdressingSalon']);
+        this.router.navigate(['/dashboard']);
+        this.pause_sppiner();
+      })
+      .catch((err) => {
+        this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
+        this.pause_sppiner();
+      })
+       //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
+    }
+  }
 
+  upload_image( file: File ) {
     this.uploadFile = file;
     if ( !file ) { 
       this.image_name = 'Seleccione una imagen...';
@@ -112,9 +153,9 @@ export class RegisterComponent implements OnInit {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      me.imageBase64 = reader.result;
+      me.imageBase64AsString = reader.result as string;
+      console.log( me.imageBase64AsString.length);
     };
-    console.log(this.imageBase64)
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };

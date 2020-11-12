@@ -11,7 +11,10 @@ import {
   FormGroup,
   FormBuilder,
   Validators }          from '@angular/forms';
+import { Schedule } from 'src/app/models/schedule';
 import { AlertService } from 'src/app/services/alert.service';
+import { ScheduleService } from 'src/app/services/schedule.service';
+import { TimeHelperService } from 'src/app/services/time-helper.service';
 
 @Component({
   selector: 'app-schedule',
@@ -27,17 +30,14 @@ export class ScheduleComponent implements OnInit {
   // Esta variable me permite identificar si ya el usuario hizo o no clic en el boton enviar.
   public submitted: boolean = false;
   public days_list: any     = [];
-  // Lista de los horarios que se van a crear.
-  schedule_list: any        = [];
 
-
-  
-  // Esta lista es solo de prueba para pintar varios horarios.
-  public schedule_list_pinter: any = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  public schedule_list: any        = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private alert_service: AlertService
+    private alert_service: AlertService,
+    private schedule_service: ScheduleService,
+    private time_helper: TimeHelperService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +52,7 @@ export class ScheduleComponent implements OnInit {
       start_time:       [''],
       end_time:         [''],
     });
+    this.load_schedules();
   }
 
   get f() { return this.schedule_form.controls; }
@@ -88,57 +89,92 @@ export class ScheduleComponent implements OnInit {
       // Si el form es valido mandamos a llamar el metodo encargado de crear el horario.
       if (this.schedule_form.valid) {
         if (monday) {
-          this.days_list.push(1);
-        }
-        if (tuesday) {
           this.days_list.push(2);
         }
-        if (wednesday) {
+        if (tuesday) {
           this.days_list.push(3);
         }
-        if (thursday) {
+        if (wednesday) {
           this.days_list.push(4);
         }
-        if (friday) {
+        if (thursday) {
           this.days_list.push(5);
         }
-        if (saturday) {
+        if (friday) {
           this.days_list.push(6);
         }
-        if (sunday) {
+        if (saturday) {
           this.days_list.push(7);
         }
+        if (sunday) {
+          this.days_list.push(1);
+        }
+
+        let newScheduleList = []
         for (let index = 0; index < this.days_list.length; index++) {
           const element = this.days_list[index];
-          // Creamos el modelo del horario para almacenarlo en la base de datos.
-          const schedule: any = {
-            weekday_id:      element,
-            start_time:      this.schedule_form.value.start_time,
-            end_time:        this.schedule_form.value.end_time,
-          };
-          this.schedule_list.push(schedule);
+         
+          var newSchedule = new Schedule();
+          newSchedule.shiftStarts = this.schedule_form.value.start_time + ':00';
+          newSchedule.shiftEnds =  this.schedule_form.value.end_time + ':00';
+          newSchedule.weekDayID = element;
+
+          newScheduleList.push(newSchedule);
         };
-        this.create_new_schedule(this.schedule_list);
+        this.create_new_schedule(newScheduleList);
       }
     }
   }
 
-  // Metodo que permite crear un nuevo horario.
-  create_new_schedule(schedule_list: any){
-
-
+  create_new_schedule(schedule_list: Schedule[]){
     console.log(schedule_list);
-
-
-    this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un nuevo horario.', 3000);
-    this.resetForm();
-
+    if(schedule_list.length > 0 )
+    {
+      if(!this.time_helper.validateTime(schedule_list[0].shiftStarts,schedule_list[0].shiftEnds))
+      {
+        console.log('La hora de inicio del horario no puede ser mayor a la hora final del horario');
+        this.alert_service.swal_create_messages('center', 'error', 'La hora de inicio del horario no puede ser mayor a la hora final del horario', 3000);
+      }
+      else{
+        this.schedule_service.createSchedules(schedule_list).toPromise()
+        .then((resp)=>{
+          this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un nuevo horario.', 3000);
+          this.resetForm();
+          this.load_schedules();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+    }
   }
 
   // Este me permite restablecer los campos del form y la varible submitted.
   resetForm() {
     this.submitted  = false;
     this.schedule_form.reset();
+  }
+
+  load_schedules()
+  {
+    this.schedule_service.getScheduleList().toPromise()
+    .then((resp)=>{
+      this.set_schedules_list(resp);
+    })
+    .catch( err =>{
+      console.log(err);
+    })
+  }
+
+  set_schedules_list(res: any) {
+    this.schedule_list = res;
+    this.schedule_list.forEach(schedule => {
+      schedule.shiftStarts = this.time_helper.convertToAmOrPMTime(schedule.shiftStarts);
+      schedule.shiftEnds = this.time_helper.convertToAmOrPMTime(schedule.shiftEnds);
+    });
+    this.schedule_list.sort(function(a, b){
+      return a.weekDayID > b.weekDayID;
+    });
   }
 
 }

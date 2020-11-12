@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
 
-    <div class="col-lg-8 form-container">
+    <div class="col-lg-10 form-container">
 
         <h2 class="text-center bg-primary text-light py-2 text-uppercase main-title mt-5 mb-4">
             Horarios
@@ -91,9 +91,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let schedule of schedule_list_pinter">
-                            <td>Lunes</td>
-                            <td>7:00am a 5:00pm</td>
+                        <tr *ngFor="let schedule of schedule_list">
+                            <td>{{schedule.weekDay}}</td>
+                            <td>{{schedule.shiftStarts}} - {{schedule.shiftEnds}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,6 +1,9 @@
 import { Component, OnInit }     from '@angular/core';
 import { NgForm }                from '@angular/forms';
 import { Router }                from '@angular/router';
+import { Session }               from '../../models/session';
+import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { AlertService }          from '../../services/alert.service';
 
 @Component({
@@ -13,10 +16,14 @@ export class LoginComponent implements OnInit {
   public loading: boolean;
   public email_user;
   public password_user;
+  public session: Session;
+  public sppinerClass:String = '';
 
   constructor(
     private router: Router,
     private alert_service: AlertService,
+    private storageService: LocalStorageService,
+    private authService: AuthService
   ) 
   { 
 
@@ -41,28 +48,29 @@ export class LoginComponent implements OnInit {
 
   }
 
-  validate_data(email: string, password: string){
-    const email_data    = 'steve@gmail.com'; //esto es para probar unicamente, se debe de eliminar.
-    const password_data = 'admin12345'; //esto es para probar unicamente, se debe de eliminar.
-
-    //Metodo de peticion al servicio que hay que crear, no se si deseas trabajarlo diferente.
-    // this.login_service.login(email, password).toPromise()
-    //   .then((resp) => {
-    //     console.log(resp);
-    //   })
-    //   .catch(err => {
-    //     // Saber cuando viene datos invalidos.
-    //     this.alert_service.swal_login_message('Oops...', err.error.msg, 'error', 3000);
-    // });
-
-    // Esto es solo simulando la validación. Eliminar esto luego.
-    if (email === email_data && password === password_data) {
-      this.alert_service.swal_create_messages('center', 'success', 'Login realizado con éxito', 3000);
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.alert_service.swal_create_messages('center', 'error', 'Credeciales invalidas, ingresa un usuario valido.', 3000);
-    }
-    
+  active_sppiner()
+  {
+    this.sppinerClass = 'spinner-border';
   }
 
+  pause_sppiner()
+  {
+    this.sppinerClass = '';
+  }
+
+  validate_data(email: string, password: string){
+    this.active_sppiner();
+  this.authService.login(email,password).toPromise()
+    .then((res) =>{
+      this.session = new Session(res["token"]);
+      this.storageService.saveSession(this.session);
+      this.storageService.saveCurrentHS(res["hairdressingSalon"]);
+      this.router.navigate(['/dashboard']);
+      this.pause_sppiner();
+    })
+    .catch(err => {
+      this.alert_service.swal_create_messages('center', 'error', 'Credeciales invalidas', 3000);
+      this.pause_sppiner();
+    })
+  }
 }
