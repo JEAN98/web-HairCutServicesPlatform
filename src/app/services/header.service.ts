@@ -10,7 +10,7 @@ export class HeaderService {
   public urlBase: string;
   public token: string;
   constructor(private sessionService: SessionService) {
-    this.urlBase  = '/api/';
+    this.urlBase  = 'https://api-hair-cut-services-platform.herokuapp.com/api/';
   }
 
   loadSession():Session{

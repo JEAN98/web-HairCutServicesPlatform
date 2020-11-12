@@ -21,6 +21,7 @@
     "@angular/router": "~9.1.4",
     "@auth0/angular-jwt": "^5.0.1",
     "chart.js": "^2.9.4",
+    "express": "^4.17.1",
     "fuctbase64": "^1.4.0",
     "moment": "^2.29.1",
     "ng2-charts": "^2.4.2",
