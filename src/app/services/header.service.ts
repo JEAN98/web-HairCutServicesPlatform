@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Session } from '../models/session';
 import { SessionService } from './session.service';
+import {environment} from'../../environments/environment.prod';
+  import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ export class HeaderService {
   public urlBase: string;
   public token: string;
   constructor(private sessionService: SessionService) {
-    this.urlBase  = 'https://api-hair-cut-services-platform.herokuapp.com/api/';
+    this.urlBase  = environment.apiUrl+'/api/';
   }
 
   loadSession():Session{
@@ -23,14 +25,23 @@ export class HeaderService {
       // tslint:disable-next-line:object-literal-key-quotes
       'Accept': 'text/html, application/xhtml+xml, */*',
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     });
     return {headers: header};
   }
 
   getHeaderLogin() {
-    // tslint:disable-next-line:new-parens
+    /*
     const header = new HttpHeaders;
     header.append('Content-Type', 'application/x-www-form-urlencoded');
+    header.append('Access-Control-Allow-Origin', '*');
+    return {headers: header};*/
+    const header = new HttpHeaders({
+      // tslint:disable-next-line:object-literal-key-quotes
+      'Accept': 'text/html, application/xhtml+xml, */*',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    });
     return {headers: header};
   }
 
@@ -44,6 +55,7 @@ export class HeaderService {
       console.log(this.loadSession().access_token, 'acces_token');
       const header = new HttpHeaders({
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer ' + this.loadSession().access_token
       });
   
