@@ -10,7 +10,7 @@ export class AuthService {
   private sessionURL: string; // base url
   
   constructor(private http: HttpClient, private headerService: HeaderService) {
-    this.sessionURL = this.headerService.urlBase + '/hairdressingSalon/session';
+    this.sessionURL = this.headerService.urlBase + 'hairdressingSalon/session';
   }
   /* refreshUrl() {
     this.loginUrl = this.headerService.getGuestURL() + '/guest/users/session';
@@ -18,7 +18,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     //this.refreshUrl();
-    
+    console.log(this.headerService.getHeaderLogin());
     return this.http.post(this.sessionURL, {email:email,password:password}, this.headerService.getHeaderLogin());
   }
 
