@@ -19,6 +19,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Router } from '@angular/router';
 import { Session }               from '../../models/session';
 import { TimeHelperService } from 'src/app/services/time-helper.service';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-register',
@@ -59,6 +60,7 @@ export class RegisterComponent implements OnInit {
       website:          [[''],],
       gender:           [''],
       password:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
+      password_confirmation:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
     });
     //this.getGenderList();
   }
@@ -76,19 +78,26 @@ export class RegisterComponent implements OnInit {
 
     // Si el form es valido mandamos a llamar el metodo encargado de crear la nueva barbershop.
     if (this.register_form.valid) {
-      
-      this.hairdressingSalon.name = this.register_form.value.name;
-      this.hairdressingSalon.description = this.register_form.value.description;
-      this.hairdressingSalon.email = this.register_form.value.email;
-      this.hairdressingSalon.latitud = this.register_form.value.latitud;
-      this.hairdressingSalon.longitud =     this.register_form.value.longitud;
-      this.hairdressingSalon.lunchStarts = this.register_form.value.start_time + ':00';
-      this.hairdressingSalon.lunchEnds =   this.register_form.value.end_time + ':00';
-      this.hairdressingSalon.website =      this.register_form.value.website;
-      this.hairdressingSalon.genderID =      1; //FIXME: Men as default
-      this.hairdressingSalon.password =     this.register_form.value.password;
-      this.hairdressingSalon.photo = this.imageBase64AsString;
-      this.createHS();
+      console.log(this.register_form.value.password_confirmation , this.register_form.value.password)
+      if(this.register_form.value.password_confirmation != this.register_form.value.password)
+      {
+        this.alert_service.swal_create_messages('center', 'error', 'La contraseña y la confirmación de contraseña no coinciden', 3000);
+      }
+      else
+      { 
+        this.hairdressingSalon.name = this.register_form.value.name;
+        this.hairdressingSalon.description = this.register_form.value.description;
+        this.hairdressingSalon.email = this.register_form.value.email;
+        this.hairdressingSalon.latitud = this.register_form.value.latitud;
+        this.hairdressingSalon.longitud =     this.register_form.value.longitud;
+        this.hairdressingSalon.lunchStarts = this.register_form.value.start_time + ':00';
+        this.hairdressingSalon.lunchEnds =   this.register_form.value.end_time + ':00';
+        this.hairdressingSalon.website =      this.register_form.value.website;
+        this.hairdressingSalon.genderID =      1; //FIXME: Men as default
+        this.hairdressingSalon.password =     this.register_form.value.password;
+        this.hairdressingSalon.photo = this.imageBase64AsString;
+        this.createHS();
+      }
     }
     
   }
