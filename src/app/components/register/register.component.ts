@@ -129,11 +129,29 @@ export class RegisterComponent implements OnInit {
         this.pause_sppiner();
       })
       .catch((err) => {
-        this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
+        
+        if(err.error["details"]!= null)
+        {
+          if(err.error["details"]["error"] === 'The email already exists')
+          {
+            this.alert_service.swal_create_messages('center', 'error', 'El correo ingresado ya se encuentra registrado. Por favor intentarlo con uno nuevo', 4000);
+          }
+          else
+            this.display_error_message();
+        }
+        else{
+         this.display_error_message();
+        }
+        
         this.pause_sppiner();
       })
        //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
     }
+  }
+
+  display_error_message()
+  {
+    this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
   }
 
   upload_image( file: File ) {
