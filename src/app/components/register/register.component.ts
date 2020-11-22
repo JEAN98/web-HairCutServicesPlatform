@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 import { Session }               from '../../models/session';
 import { TimeHelperService } from 'src/app/services/time-helper.service';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -59,6 +60,7 @@ export class RegisterComponent implements OnInit {
       website:          [[''],],
       gender:           [''],
       password:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
+      password_confirmation:         [[''], [Validators.required, Validators.minLength(8), Validators.maxLength(200)]],
     });
     //this.getGenderList();
   }
@@ -76,19 +78,26 @@ export class RegisterComponent implements OnInit {
 
     // Si el form es valido mandamos a llamar el metodo encargado de crear la nueva barbershop.
     if (this.register_form.valid) {
-      
-      this.hairdressingSalon.name = this.register_form.value.name;
-      this.hairdressingSalon.description = this.register_form.value.description;
-      this.hairdressingSalon.email = this.register_form.value.email;
-      this.hairdressingSalon.latitud = this.register_form.value.latitud;
-      this.hairdressingSalon.longitud =     this.register_form.value.longitud;
-      this.hairdressingSalon.lunchStarts = this.register_form.value.start_time + ':00';
-      this.hairdressingSalon.lunchEnds =   this.register_form.value.end_time + ':00';
-      this.hairdressingSalon.website =      this.register_form.value.website;
-      this.hairdressingSalon.genderID =      1; //FIXME: Men as default
-      this.hairdressingSalon.password =     this.register_form.value.password;
-      this.hairdressingSalon.photo = this.imageBase64AsString;
-      this.createHS();
+      console.log(this.register_form.value.password_confirmation , this.register_form.value.password)
+      if(this.register_form.value.password_confirmation != this.register_form.value.password)
+      {
+        this.alert_service.swal_create_messages('center', 'error', 'La contraseña y la confirmación de contraseña no coinciden', 3000);
+      }
+      else
+      { 
+        this.hairdressingSalon.name = this.register_form.value.name;
+        this.hairdressingSalon.description = this.register_form.value.description;
+        this.hairdressingSalon.email = this.register_form.value.email;
+        this.hairdressingSalon.latitud = this.register_form.value.latitud;
+        this.hairdressingSalon.longitud =     this.register_form.value.longitud;
+        this.hairdressingSalon.lunchStarts = this.register_form.value.start_time + ':00';
+        this.hairdressingSalon.lunchEnds =   this.register_form.value.end_time + ':00';
+        this.hairdressingSalon.website =      this.register_form.value.website;
+        this.hairdressingSalon.genderID =      1; //FIXME: Men as default
+        this.hairdressingSalon.password =     this.register_form.value.password;
+        this.hairdressingSalon.photo = this.imageBase64AsString;
+        this.createHS();
+      }
     }
     
   }
@@ -129,11 +138,29 @@ export class RegisterComponent implements OnInit {
         this.pause_sppiner();
       })
       .catch((err) => {
-        this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
+        
+        if(err.error["details"]!= null)
+        {
+          if(err.error["details"]["error"] === 'The email already exists')
+          {
+            this.alert_service.swal_create_messages('center', 'error', 'El correo ingresado ya se encuentra registrado. Por favor intentarlo con uno nuevo', 4000);
+          }
+          else
+            this.display_error_message();
+        }
+        else{
+         this.display_error_message();
+        }
+        
         this.pause_sppiner();
       })
        //this.alert_service.swal_create_messages('center', 'success', 'Barberia creada con éxito', 3000);
     }
+  }
+
+  display_error_message()
+  {
+    this.alert_service.swal_create_messages('center', 'error', 'No se pudo crear la cuenta nueva. Por favor intentarlo de nuevo', 3000);
   }
 
   upload_image( file: File ) {
