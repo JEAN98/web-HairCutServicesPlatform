@@ -19,7 +19,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Router } from '@angular/router';
 import { Session }               from '../../models/session';
 import { TimeHelperService } from 'src/app/services/time-helper.service';
-import { Console } from 'console';
+
 
 @Component({
   selector: 'app-register',
