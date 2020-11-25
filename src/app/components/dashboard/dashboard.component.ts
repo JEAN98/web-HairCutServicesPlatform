@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onLogout() {
- // this.storageService.deleteData();
+    this.storageService.deleteData();
     this.router.navigate(['/login']);
   }
 
