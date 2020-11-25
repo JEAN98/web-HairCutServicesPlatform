@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #2A2522;
+    --primary-color: #000000;
     --secondary-color: #DE5F60;
     --tertiary-color: #E1834D;
 }
@@ -16,6 +16,7 @@
 html,
 body {
     height: 100%;
+    background-color: #fdfdfd;
 }
 
 body {

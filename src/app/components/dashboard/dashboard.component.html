@@ -6,6 +6,11 @@
                 src='../../../assets/imgs/HCS_APP_LOGO_2.png'
                 alt="logo" width="200" height="200">
             </div>
+            <span><hr></span>
+            <div class="welcome">
+                
+                <h4>{{barberShopName}} Andres Lopez</h4>
+            </div>
             <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                 <a routerLink="./appointments" routerLinkActive="active" routerLinkActiveOptions="(exact: true)">
                     <i class="fa fa-calendar-alt icon-dashboard"></i><span>Citas</span>
@@ -37,7 +42,7 @@
         </div>
 
         <main class="main col">
-            <div class="widget">
+            <div class="widget card container">
                 <router-outlet></router-outlet>
                <!-- <app-footer></app-footer> TODO:Footer here--> 
             </div>

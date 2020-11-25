@@ -1,5 +1,5 @@
 body {
-    background: white;
+    background: #fdfdfd;
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -51,6 +51,19 @@ hr {
     margin-bottom: 0%;
 }
 
+/* --- welcome --- */
+.dashboard .welcome {
+    color: white;
+    padding: 20px;
+    padding-left: 15px;
+    padding-right: 35px;
+    width: 200px;
+    overflow: hidden;
+}
+
+.dashboard .welcome h4{
+    color: var(--tertiary-color);
+}
 
 /* Menu */
 
@@ -110,6 +123,7 @@ a.active i {
 
 .main .widget {
     margin-bottom: 40px;
+    padding-bottom: 50px;
 }
 
 
@@ -119,7 +133,7 @@ a.active i {
     .dashboard {
         min-width: auto;
     }
-    .dashboard .logo {
+    .dashboard .logo, .dashboard .welcome {
         display: none;
     }
     .dashboard .menu a span {
