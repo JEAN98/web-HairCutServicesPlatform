@@ -5,6 +5,7 @@
     min-width: 100%;
     background-color: var(--primary-color);
     overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .login-body {
