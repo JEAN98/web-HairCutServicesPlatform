@@ -9,13 +9,16 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class DashboardComponent implements OnInit {
 
+  public barberShopName:String = '...';
+
   constructor(private router: Router,private storageService:LocalStorageService) { }
 
   ngOnInit(): void {
+    this.barberShopName = this.storageService.getCurrentHS().name;
   }
 
   onLogout() {
- // this.storageService.deleteData();
+    this.storageService.deleteData();
     this.router.navigate(['/login']);
   }
 

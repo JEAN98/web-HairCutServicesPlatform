@@ -1,5 +1,5 @@
 body {
-    background: white;
+    background: #fdfdfd;
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -32,7 +32,7 @@ body {
 /* --- Logo --- */
 
 .dashboard .logo {
-    background: #41929D;
+    background: #000000;
     margin-bottom: 2px;
 }
 
@@ -46,20 +46,33 @@ body {
 }
 
 hr {
-    border-top: 2px solid white !important;
-    width: 50%;
+    border-top: 0.1px solid #616161 !important;
     margin-top: 10px;
     margin-bottom: 0%;
 }
 
+/* --- welcome --- */
+.dashboard .welcome {
+    color: white;
+    padding: 20px;
+    padding-left: 15px;
+    padding-right: 35px;
+    width: 200px;
+    overflow: hidden;
+}
+
+.dashboard .welcome h4{
+    color: var(--tertiary-color);
+}
 
 /* Menu */
 
 .dashboard .menu a {
     display: block;
     padding: 20px;
+    padding-left: 15px;
+    padding-right: 35px;
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
 }
 
 .icon-dashboard {
@@ -110,6 +123,7 @@ a.active i {
 
 .main .widget {
     margin-bottom: 40px;
+    padding-bottom: 50px;
 }
 
 
@@ -119,7 +133,7 @@ a.active i {
     .dashboard {
         min-width: auto;
     }
-    .dashboard .logo {
+    .dashboard .logo, .dashboard .welcome {
         display: none;
     }
     .dashboard .menu a span {

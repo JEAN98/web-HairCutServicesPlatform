@@ -143,6 +143,7 @@ export class ScheduleComponent implements OnInit {
           this.load_schedules();
         })
         .catch(err => {
+          this.alert_service.swal_create_messages('center', 'error', 'Se presentaron problemas, puede que uno de los días selecionados ya se encuentra registrado', 4000);
           console.log(err);
         })
       }

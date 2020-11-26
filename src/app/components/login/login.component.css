@@ -3,14 +3,14 @@
 .login-body {
     min-height: 100%;
     min-width: 100%;
-    height: 1328px;
     background-color: var(--primary-color);
+    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .login-body {
-    background-image: url('src/assets/imgs/HCS_APP_COVER_4.jpg');
+    background-image: url('src/assets/imgs/HCS_APP_COVER_10.jpg');
     background-size: cover;
-    background-repeat: no-repeat !important;
 }
 
 .bg-primary {
@@ -27,7 +27,12 @@
     -webkit-box-shadow: 0px 22px 24px -12px rgba(0, 0, 0, 0.52) !important;
     -moz-box-shadow: 0px 22px 24px -12px rgba(0, 0, 0, 0.52) !important;
     box-shadow: 0px 22px 24px -12px rgba(0, 0, 0, 0.52) !important;
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+}
+
+.logo{
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 
@@ -41,7 +46,7 @@
     background-color: transparent !important;
     color: var(--tertiary-color) !important;
     border-bottom: 1px solid var(--tertiary-color) !important;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .nav-link {

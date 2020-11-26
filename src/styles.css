@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #2A2522;
+    --primary-color: #000000;
     --secondary-color: #DE5F60;
     --tertiary-color: #E1834D;
 }
@@ -16,6 +16,7 @@
 html,
 body {
     height: 100%;
+    background-color: #fdfdfd;
 }
 
 body {
@@ -29,7 +30,7 @@ body {
 .btn-primary {
     background-color: var(--tertiary-color) !important;
     color: white !important;
-    font-weight: bold !important;
+    font-weight: normal !important;
     border-color: var(--tertiary-color) !important;
 }
 
@@ -49,7 +50,7 @@ body {
 .btn-success {
     background-color: var(--tertiary-color);
     color: white;
-    font-weight: bold;
+    font-weight: normal;
     border-color: var(--tertiary-color);
 }
 
@@ -63,7 +64,7 @@ body {
     margin-right: 5px;
     background-color: var(--secondary-color);
     color: white;
-    font-weight: bold;
+    font-weight: normal;
     border-color: var(--secondary-color);
 }
 
@@ -71,4 +72,12 @@ body {
     background-color: white;
     color: var(--secondary-color);
     border-color: var(--secondary-color);
+}
+
+.form-control{
+    margin-bottom: 10px;
+}
+
+label {
+    margin-bottom: .2rem;
 }

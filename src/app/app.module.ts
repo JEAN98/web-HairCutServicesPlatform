@@ -16,6 +16,7 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ReportComponent } from './components/report/report.component';
 import { ChartsModule } from 'ng2-charts';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
     ReactiveFormsModule,
     ChartsModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

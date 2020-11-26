@@ -9,19 +9,23 @@ import { ServicesComponent }     from './components/services/services.component'
 import { StaffComponent }        from './components/staff/staff.component';
 import { ScheduleComponent }     from './components/schedule/schedule.component';
 import { ReportComponent }     from './components/report/report.component';
+import { AuthGuard } from './auth.guard';
 
 
 
 const routes: Routes = [
-  {  path: 'dashboard', component: DashboardComponent,
-  children: [
-    { path: '', redirectTo: 'appointments', pathMatch: 'full' },
-    {  path: 'appointments', component: AppointmentsComponent  },
-    {  path: 'services', component: ServicesComponent  },
-    {  path: 'staff', component: StaffComponent  },
-    {  path: 'schedule', component: ScheduleComponent  },
-    {  path: 'report', component: ReportComponent  },
-  ]
+  {  
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {  path: '', redirectTo: 'appointments', pathMatch: 'full' },
+      {  path: 'appointments', component: AppointmentsComponent  },
+      {  path: 'services', component: ServicesComponent  },
+      {  path: 'staff', component: StaffComponent  },
+      {  path: 'schedule', component: ScheduleComponent  },
+      {  path: 'report', component: ReportComponent  },
+    ]
   },
   {  path: 'login', component: LoginComponent  },
   {  path: '**', pathMatch: 'full', redirectTo: 'login'  }

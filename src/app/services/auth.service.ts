@@ -26,4 +26,8 @@ export class AuthService {
     return this.http.delete(this.sessionURL, this.headerService.getHeaderToken());
   }
 
+  loggedIn(){
+    return !!localStorage.getItem('session')
+  }
+
 }
