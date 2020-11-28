@@ -46,7 +46,7 @@
                         <div class="card border-success mb-3" style="max-width: 18rem;">
                             <div class="card-header bg-transparent border-success">{{appointment.date}}</div>
                             <div class="card-body text-success">
-                                <h5 class="card-title">{{appointment.clientName}}</h5>
+                                <h6 class="card-title">{{appointment.clientName}}</h6>
                                 <p class="card-text">Tiempo Total: {{appointment.totalTime}}min</p>
                                 <p class="card-text">Costo Total: ₡{{appointment.totalCost}}</p>
                                 <p class="card-text">{{appointment.shiftStarts}} - {{appointment.shiftEnds}}</p>
@@ -56,7 +56,11 @@
                                     Ver servicios
                                 </button>
                             </div>
-                            <div class="card-footer bg-transparent border-success ">{{appointment.workerName}}</div>
+                            <div class="card-footer bg-transparent border-success ">
+                                <h6 class="card-title">
+                                        {{appointment.workerName}}
+                                </h6>
+                            </div>
                         </div>
 
                     </div>
