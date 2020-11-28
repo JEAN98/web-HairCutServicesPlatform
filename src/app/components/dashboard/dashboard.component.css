@@ -111,6 +111,7 @@ a.active i {
 
 .main {
     padding-top: 40px;
+    scrollbar-width: thin;
 }
 
 .main .title {
