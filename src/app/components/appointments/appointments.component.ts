@@ -20,7 +20,7 @@ export class AppointmentsComponent implements OnInit {
     public is_services_view_available: boolean = false;
     public current_client_name:String = '';
 
-    public appoiment_message:String = 'Selecione el rango de fechas para ver las citas';
+    public appoiment_message:String = 'Seleccione el rango de fechas para ver las citas';
     // Esta lista es solo de prueba para pintar varias targetas.
     public appoiment_list: any = [];
     // Esta lista es solo de prueba para pintar varias targetas de servicios.
@@ -59,7 +59,7 @@ export class AppointmentsComponent implements OnInit {
        
       }
       else{
-        this.alert_service.swal_create_messages('center', 'error', 'Debes de seleccionar las fechas para establecer el rango de búsqueda.', 3000);
+        this.alert_service.swal_create_messages('center', 'error', 'Debe de seleccionar las fechas para establecer el rango de búsqueda.', 3000);
       }
   }
 
@@ -87,7 +87,11 @@ export class AppointmentsComponent implements OnInit {
       this.appoiment_list[index].shiftStarts = this.timeHelper.convertToAmOrPMTime(startTime);
       this.appoiment_list[index].shiftEnds = this.timeHelper.convertToAmOrPMTime(endTime);
     }
-   // console.log(this.appoiment_list );
+    
+    this.appoiment_list.sort(function(a,b){
+
+      return +new Date(b.shiftStarts) - +new Date(a.shiftStarts);
+    });
   }
 
   load_appoiment_services(appoimentID)
@@ -105,6 +109,13 @@ export class AppointmentsComponent implements OnInit {
       console.log(err);
       this.pause_sppiner();
     })
+  }
+
+  sorted_list()
+  {
+    this.appoiment_services_list.sort((a, b) => b.shiftStarts - a.shiftStarts);
+    this.appoiment_services_list.sort(function(a,b){
+    });
   }
 
   set_appoiment_services_list(newList)
