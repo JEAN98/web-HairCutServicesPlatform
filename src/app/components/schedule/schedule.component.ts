@@ -83,7 +83,7 @@ export class ScheduleComponent implements OnInit {
         saturday  != true &&
         sunday    != true ) {
 
-      this.alert_service.swal_create_messages('center', 'error', 'Debes de seleccionar mínimo un día.', 3000);
+      this.alert_service.swal_create_messages('center', 'error', 'Debe de seleccionar mínimo un día.', 3000);
 
     } else {
       // Si el form es valido mandamos a llamar el metodo encargado de crear el horario.
@@ -143,7 +143,7 @@ export class ScheduleComponent implements OnInit {
           this.load_schedules();
         })
         .catch(err => {
-          this.alert_service.swal_create_messages('center', 'error', 'Se presentaron problemas, puede que uno de los días selecionados ya se encuentra registrado', 4000);
+          this.alert_service.swal_create_messages('center', 'error', 'Se presentaron problemas, puede que uno de los días seleccionados ya se encuentra registrado', 4000);
           console.log(err);
         })
       }

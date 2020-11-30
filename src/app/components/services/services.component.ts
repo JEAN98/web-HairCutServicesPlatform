@@ -81,7 +81,7 @@ export class ServicesComponent implements OnInit {
 
      this.hairdresserService.createHairdresserService(newService).toPromise()
      .then((resp) => {
-       this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un servicio con éxito.', 3000);
+       this.alert_service.swal_create_messages('center', 'success', 'Se ha registrado un nuevo servicio con éxito.', 3000);
        this.resetForm();
        this.load_hairdresser_services_list();
      })

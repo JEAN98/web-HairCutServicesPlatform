@@ -95,7 +95,7 @@ export class StaffComponent implements OnInit {
         {
           if(err.error["details"]["message"] === 'identification_card must be unique')
           {
-            this.alert_service.swal_create_messages('center', 'error', 'El número de la cédula debe ser único, el número selecionado ya existen en la base de datos', 4000);
+            this.alert_service.swal_create_messages('center', 'error', 'El número de la cédula debe ser único, el número seleccionado ya existe en la base de datos', 4000);
           }
         }
     })

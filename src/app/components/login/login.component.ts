@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.password_user = userForm.value.password_login;
 
     if (!this.email_user || !this.password_user) {
-      this.alert_service.swal_login_message('Oops...', 'Debes de completar el formulario.', 'error', 3000);
+      this.alert_service.swal_login_message('Oops...', 'Debe de completar el formulario.', 'error', 3000);
     } else {
       this.validate_data(this.email_user, this.password_user);
     }
