@@ -122,7 +122,6 @@ export class AppointmentsComponent implements OnInit {
   set_appoiment_services_list(newList)
   {
     this.appoiment_services_list = newList;
-    this.sorted_list();
   }
 
   set_current_client_name(appoimentID)
