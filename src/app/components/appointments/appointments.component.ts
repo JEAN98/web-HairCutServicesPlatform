@@ -114,8 +114,9 @@ export class AppointmentsComponent implements OnInit {
   sorted_list()
   {
     this.appoiment_services_list.sort((a, b) => b.shiftStarts - a.shiftStarts);
+    /*
     this.appoiment_services_list.sort(function(a,b){
-    });
+    });*/
   }
 
   set_appoiment_services_list(newList)
