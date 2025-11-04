@@ -1,4 +1,12 @@
 # HairCut Services Platform
+![Node.js](https://img.shields.io/badge/Node.js-18.x-brightgreen.svg)
+![Express.js](https://img.shields.io/badge/Express.js-4.x-lightgrey.svg)
+![Angular](https://img.shields.io/badge/Angular-9.x-red.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.x-blue.svg)
+![Karma](https://img.shields.io/badge/Tests-Karma-orange.svg)
+![Protractor](https://img.shields.io/badge/E2E-Protractor-lightgreen.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
 A web‑based platform for barbers and salon clients to manage hair‑cut / grooming service schedules, bookings, and service offerings.
 
