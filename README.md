@@ -1,27 +1,97 @@
-# HairCutServicesFrontend
+# HairCut Services Platform
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
+A web‑based platform for barbers and salon clients to manage hair‑cut / grooming service schedules, bookings, and service offerings.
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The HairCut Services Platform is a full‑stack web application built with Angular on the front‑end and a Node/Express back‑end (via `server.js`). It is designed to streamline the booking and management of hair‑cut services: clients can view available services, schedule appointments; barbers or salon administrators can manage services, appointments, and users.
 
-## Code scaffolding
+It is useful because it consolidates service‑listing, scheduling, user management and back‑office tracking into one unified platform — ideal for small salons, barbershops or freelance stylists who want to present a professional web presence and manage clients efficiently.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- Responsive Angular front‑end application generated with Angular CLI (v9.1.4).
+- Back‑end server via `server.js` (Node.js) that serves the front‑end build and handles API requests.
+- Typescript support (via `tsconfig.json`, `tsconfig.app.json`).
+- Testing infrastructure set up with Karma (`karma.conf.js`), Protractor for end‑to‑end tests (`e2e/` folder).
+- Folder structure for different modules and assets under `src/`.
+- Pre‑configured build scripts in `package.json`, as part of the Angular project.
+- Support for modern browsers (via `browserslist`) and linting (`tslint.json`).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Installation
 
-## Running unit tests
+These instructions assume you have Node.js and npm installed on your development machine.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+git clone https://github.com/JEAN98/web‑HairCutServicesPlatform.git
+cd web‑HairCutServicesPlatform
+npm install
+npm install ‑g @angular/cli   # optional
+ng serve
+```
 
-## Running end-to-end tests
+Then navigate to `http://localhost:4200/` in your browser. The application will reload on file changes.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Production build
 
-## Further help
+```bash
+ng build --prod
+node server.js
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The server will typically serve the static files (from `dist/`) and handle API endpoints.
+
+## Usage
+
+Example usage scenarios:
+
+- As a salon administrator: log in, navigate to the dashboard, add available services (e.g., “Men’s haircut”, “Beard trim”), set pricing, manage staff, view upcoming appointments.
+- As a client: browse service listings, select a time slot, book the service, receive confirmation.
+
+Run tests:
+
+```bash
+ng test
+ng e2e
+```
+
+## Configuration
+
+- `angular.json`, `tsconfig.json`, `tsconfig.app.json`, `tsconfig.spec.json` – configure the Angular build and TypeScript settings.
+- `tslint.json` – linting rules for the codebase.
+- `browserslist` – defines browser support for the Angular app.
+- `server.js` – Node/Express server setup.
+
+If you extend the back‑end to connect to a database (e.g., MongoDB, PostgreSQL), create a `.env` file for credentials and update `server.js` accordingly.
+
+## Folder Structure
+
+```
+/web‑HairCutServicesPlatform
+│
+├─ e2e/                     # End‑to‑end test suite 
+├─ src/                     # Angular source code
+│    ├─ app/                # Application modules, components, services
+│    ├─ assets/             # Static assets (images, icons, styles)
+│    ├─ environments/       # Environment configuration (dev, prod)
+│    └─ index.html, main.ts, styles.scss etc.
+├─ server.js                # Node/Express server (back‑end API and static file serving)
+├─ angular.json             # Angular CLI project configuration
+├─ package.json             # npm dependencies and scripts
+├─ tsconfig.json
+├─ tslint.json
+└─ .editorconfig, .gitignore
+```
+
+## Technologies / Stack
+
+- **Front‑end:** Angular (v9.x) – TypeScript, HTML, SCSS/CSS  
+- **Back‑end:** Node.js + Express  
+- **Build & Tooling:** Angular CLI, npm, Karma, Protractor  
+- **Linting / Formatting:** TSLint, EditorConfig  
+- **Language:** TypeScript (and some JavaScript for server side)  
+- **Package management:** npm  
+
+
+---
+Thank you for checking out this project — happy coding! 🚀
