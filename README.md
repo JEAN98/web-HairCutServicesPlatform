@@ -93,5 +93,5 @@ If you extend the back‑end to connect to a database (e.g., MongoDB, PostgreSQL
 - **Package management:** npm  
 
 
----
-Thank you for checking out this project — happy coding! 🚀
+### 💈 Developed by Jean Carlo Vega Bejarano
+> “Building digital tools that streamline real-world services — one haircut at a time.”
